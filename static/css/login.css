@@ -1,0 +1,29 @@
+.wrap_login{position:absolute;top:0;left:0; width:100%; height:100%; background-color:#f1f1f1; min-height:650px;}
+
+
+.wrap_login .login_box{position:absolute; top:-127px; left:0; right:0; bottom:0; margin:auto; display:block; width:629px; height:468px;}
+.wrap_login .login_box .logo{height:44px; padding-left:17px;}
+.wrap_login .login_box .title{font-size:37px; letter-spacing:-1px; padding-left:17px; height:38px; line-height:38px; margin-top:18px;}
+.wrap_login .login_box .title .text1{font-weight:bold; color:#df4349;}
+.wrap_login .login_box .title .text2{font-weight:400; color:#47484d;}
+.wrap_login .login_box .login{box-sizing:border-box; width:629px; height:339px; border:1px #dedede solid; background:#fff; margin-top:27px;}
+.wrap_login .login_box .login .content_login{padding:65px 38px 46px 38px}
+.wrap_login .login_box .login .content_login .login_fieldbox{height:130px;}
+.wrap_login .login_box .login .content_login .login_fieldbox .fieldbox{position:relative; width:100%; height:96px;}
+.wrap_login .login_box .login .content_login .login_fieldbox .fieldbox .ftitle{float:left; width:74px; height:44px; line-height:44px; font-size:19px; text-align:left; color:#444; padding-left:50px; font-weight:bold; letter-spacing:-1px;}
+.wrap_login .login_box .login .content_login .login_fieldbox .fieldbox .id{float:left; width:378px; height:44px;}
+.wrap_login .login_box .login .content_login .login_fieldbox .fieldbox .id .input_id{padding:11px 10px 10px 10px; border:1px solid #d4d4d4; font-size:18px; width:222px; margin-left:10px;}
+.wrap_login .login_box .login .content_login .login_fieldbox .fieldbox .pw{float:left; width:378px; height:44px; margin-top:8px;}
+.wrap_login .login_box .login .content_login .login_fieldbox .fieldbox .pw .input_pw{padding:11px 10px 10px 10px; border:1px solid #d4d4d4; font-size:18px; width:222px; margin-left:10px;}
+.wrap_login .login_box .login .content_login .login_fieldbox .fieldbox .btn_login{position:absolute; right:50px; width:108px; height:96px;}
+.wrap_login .login_box .login .content_login .saveid{display:block; height:23px; padding-left:266px; margin-top:10px;}
+.wrap_login .login_box .login .content_login .info_wrap{border-top:1px #df4349 solid; margin-top:28px; padding:16px 0 0 0; letter-spacing:-1px; font-weight:bold; color:#636363;}
+.wrap_login .login_box .login .content_login .info_wrap ul li{line-height:30px; text-align:right; padding-right:42px;}
+
+
+
+
+
+
+
+

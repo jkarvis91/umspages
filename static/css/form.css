@@ -1,0 +1,183 @@
+@charset "utf-8";
+
+.checkbox_default{float:left; margin-right:10px;}
+.checkbox_default input[type="checkbox"]{
+  width:1px; 
+  height:1px; 
+  padding:0; 
+  border:0 none; 
+  margin:0; 
+  position:absolute; 
+  left:0; 
+  top:0; 
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+}
+.checkbox_default label{
+  height:16px; 
+  line-height:14px; 
+  padding-left:23px; 
+  display:inline-block; 
+  background:url(../images/checkbox.png) no-repeat 0 0; 
+  vertical-align:middle; 
+  cursor:pointer;
+}
+.checkbox_default input[type="checkbox"]:checked + label{
+  background-position: 0 -16px;
+}
+
+.checkbox_center{float:none; margin-right:0px;}
+.checkbox_center input[type="checkbox"]{
+  width:1px; 
+  height:1px; 
+  padding:0; 
+  border:0 none; 
+  margin:0; 
+  position:absolute; 
+  left:0; 
+  top:0; 
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+}
+.checkbox_center label{
+  height:16px; 
+  line-height:16px; 
+  padding-left:16px; 
+  display:inline-block; 
+  background:url(../images/checkbox.png) no-repeat 0 0; 
+  vertical-align:middle; 
+  cursor:pointer;
+}
+.checkbox_center input[type="checkbox"]:checked + label{
+  background-position: 0 -16px;
+}
+
+.checkbox_disable{float:left; margin-right:10px;}
+.checkbox_disable input[type="checkbox"]{
+  width:1px; 
+  height:1px; 
+  padding:0; 
+  border:0 none; 
+  margin:0; 
+  position:absolute; 
+  left:0; 
+  top:0; 
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+}
+.checkbox_disable label{
+  height:16px; 
+  line-height:14px; 
+  padding-left:23px; 
+  display:inline-block; 
+  background:url(../images/checkbox_gray.png) no-repeat 0 0; 
+  vertical-align:middle; 
+  cursor:pointer;
+	color:#b0b0b0;
+}
+.checkbox_disable input[type="checkbox"]:checked + label{
+  background-position: 0 -16px;
+}
+
+.radio_default{float:left; margin-right:25px;}
+.radio_default input[type="radio"]{
+  width:1px; 
+  height:1px; 
+  padding:0; 
+  border:0 none; 
+  margin:0; 
+  position:absolute; 
+  left:0; 
+  top:0; 
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+}
+.radio_default label{
+  height:16px; 
+  line-height:16px; 
+  padding-left:23px; 
+  display:inline-block; 
+  background:url(../images/radio.png) no-repeat 0 0; 
+  vertical-align:middle; 
+  cursor:pointer;
+}
+.radio_default input[type="radio"]:checked + label{
+  background-position: 0 -16px;
+}
+
+.radio_default_center{float:none; margin-right:0px;}
+.radio_default_center input[type="radio"]{
+  width:1px; 
+  height:1px; 
+  padding:0; 
+  border:0 none; 
+  margin:0; 
+  position:absolute; 
+  left:0; 
+  top:0; 
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+}
+.radio_default_center label{
+  height:16px; 
+  line-height:16px; 
+  padding-left:16px; 
+  display:inline-block; 
+  background:url(../images/radio.png) no-repeat 0 0; 
+  vertical-align:middle; 
+  cursor:pointer;
+}
+.radio_default_center input[type="radio"]:checked + label{
+  background-position: 0 -16px;
+}
+
+.radio_disable{float:left; margin-right:10px;}
+.radio_disable input[type="radio"]{
+  width:1px; 
+  height:1px; 
+  padding:0; 
+  border:0 none; 
+  margin:0; 
+  position:absolute; 
+  left:0; 
+  top:0; 
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+}
+.radio_disable label{
+  height:16px; 
+  line-height:16px; 
+  padding-left:23px; 
+  display:inline-block; 
+  background:url(../images/radio_gray.png) no-repeat 0 0; 
+  vertical-align:middle; 
+  cursor:pointer;
+}
+.radio_disable input[type="radio"]:checked + label{
+  background-position: 0 -16px;
+}
+
+/* form */
+/*input.f_control,textarea.f_control,select.f_control{display:inline-block; padding:0px 10px; width:100%; height:30px; border:1px solid #e3e3e3; font-size:14px; color:#737373}
+textarea.f_control{display:inline-block; padding:10px 10px; width:100%; height:68px; border:1px solid #e3e3e3; font-size:14px; color:#737373}
+input.f_control_s{margin-right:5px; padding:0px 10px; width:46%; height:38px; border:1px solid #e3e3e3; font-size:14px; color: #737373}*/
+
+select{display:inline-block; padding:0px 10px; height:30px; border:1px solid #c4c4c4; background:#fff; outline:none;}
+textarea{display:inline-block; padding:10px 10px; height:30px; border:1px solid #c4c4c4; background:#fff; outline:none;}
+textarea.sms{display:inline-block; padding:0px 0px; border:0px solid #c4c4c4; background:#cfddea; outline:none; color:#233d58; font-size:13px;}
+input{display:inline-block; padding:0px 10px; height:28px; border:1px solid #c4c4c4; background:#fff; outline:none; vertical-align:middle; margin-top:1px;}
+input.disabled{border:1px solid #e0e0e0; background-clip:#fafafa; color:#888;}
+input.sms{padding:0px 0px; height:35px; border:0px solid #c4c4c4; background:#b8cde1; outline:none; vertical-align:middle; margin-top:0px; color:#0f2d49; font-weight:bold;}
+input.nsend{padding:0px 0px; height:35px; border:0px solid #c4c4c4; background:#cfddea; outline:none; vertical-align:middle; margin-top:0px; color:#0f2d49; font-weight:bold; font-size:15px;}
+input.nsend2{padding:0px 0px; height:35px; border:0px solid #c4c4c4; background:#b8cde1; outline:none; vertical-align:middle; margin-top:0px; color:#0f2d49; font-weight:bold; font-size:15px;}
+input.small{padding:0px 5px;}
+
+select{border-radius:0px; /*iOS 둥근모서리 제거 */ appearance: none; /*네이티브 외형 감추기 */  -webkit-appearance: none; -moz-appearance: none; background:url(../images/select_arrow.png) no-repeat 92% 50%; background-color:#fff; padding-right:30px !important;}
+select.disabled{background:url(../images/select_arrow_disable.png) no-repeat 92% 50%;color:#b7b7cc !important}
+/* *IE 10, 11의 네이티브 화살표 숨기기* */
+select::-ms-expand {display:none}
+select.small{background:url(../images/select_arrow.png) no-repeat 85% 50%; padding-right:26px !important; background-color:#fff;}
+select.small.disabled{background:url(../images/select_arrow_disable.png) no-repeat 85% 50%;color:#b7b7cc !important}
+select.big{background:url(../images/select_arrow.png) no-repeat 95% 50%; padding-right:26px !important; background-color:#fff;}
+select.big.disabled{background:url(../images/select_arrow_disable.png) no-repeat 95% 50%;color:#b7b7cc !important}
+
