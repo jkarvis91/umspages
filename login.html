@@ -1,0 +1,92 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>메시지센터 로그인</title>
+  <link rel="stylesheet" href="./static/css/style.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+	  if (typeof jQuery === 'undefined') {
+		document.write('<script src="./static/js/jquery.min.js"><\/script>');
+	  }
+	</script>
+  <script src="./static/js/sha256.js"></script>
+</head>
+<body>
+
+<!-- wrap_login -->
+<div class="weap_Event_Login">
+    <div class="box_login" style="width: auto;">
+        <div class="logo_login">
+            <h1><img src="./static/images/logo_login.png" alt="UMS" /></h1>
+            <span class="title">메시지센터</span>
+        </div>
+        <div class="boxlogin">
+            <div class="title">LOGIN</div>
+            <div class="text1">서비스 이용을 위해 로그인을 해주세요.</div>
+            <div class="fieldbox">
+	            <form id="allmsgForm" method="post" action="javascript:void(0);">
+	                <div class="col1" id="div_idpw">
+	                    <input class="id" type="text" name="event_id" value="testuser" placeholder="아이디">
+	                    <input class="password" type="password" name="event_pwd" value="" placeholder="비밀번호">
+	                    <input type="hidden" name="event_pw" value="" >
+						<input type="hidden" name="login_method" value="idpw" >	                    
+	                </div>
+	                <div class="col2">
+                        <a href="javascript:;" id="btn_event_login">
+                          <img src="./static/images/btn_login.png" alt="로그인" />
+                        </a>
+                    </div>
+	            </form>
+            </div>
+            <div class="copyright">Copyright 2018. All rights reserved.</div>
+        </div>
+    </div>
+</div>
+<!-- //wrap_login -->
+
+<script>
+function showAlert(message, callback) {
+    alert(message);
+    if (typeof callback === "function") callback();
+}
+</script>
+
+<script>
+$(document).ready(function(){
+    $(".weap_Event_Login").parents("section").find("aside").hide(); // 이 부분은 DOM 구조에 따라 무효일 수 있음
+
+    // 에러 메시지 처리 (하드코딩)
+   // const errorMsg = ""; // 예: "비밀번호가 틀렸습니다."
+   // if(errorMsg !== '') showAlert(errorMsg);
+
+	$("#btn_event_login").on("click", function() {
+		const id = $("input[name=event_id]").val().trim();
+		const pw = $("input[name=event_pwd]").val().trim();
+
+		if (id === '') {
+			showAlert("아이디를 입력해주세요.");
+			return false;
+		}
+
+		if (pw === '') {
+			showAlert("비밀번호를 입력해주세요.");
+			return false;
+		}
+
+		// 실제 로그인 없이 바로 메인 페이지로 이동
+		location.href = "main.html";
+	});
+
+
+    $("input[name=event_pwd]").keypress(function (event) {
+        if (event.which == 13) {
+            $("#btn_event_login").trigger("click");
+        }
+    });
+});
+</script>
+
+</body>
+</html>

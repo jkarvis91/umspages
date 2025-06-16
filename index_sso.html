@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>::: Message Center (SSO Demo) :::</title>
+</head>
+<body>
+
+<h2>SSO 인증 처리 페이지</h2>
+
+<script>
+  alert("이 페이지는 GitHub Pages에서 제공되는 데모용 SSO 인증 시뮬레이션 화면입니다.");
+
+  const ssoClientDetected = false; // 실제 환경이면 true
+
+  if (!ssoClientDetected) {
+    const confirmed = confirm("SSO(업무인증) Client 프로그램이 설치되어 있지 않습니다.\n프로그램 수동 설치 페이지로 이동하시겠습니까?");
+    if (confirmed) {
+      location.href = "sso_installer.html";  // 데모용 수동설치 안내 페이지
+    } else {
+      location.href = "login.html";  // 데모 로그인 페이지
+    }
+  } else {
+    // 인증 티켓 시뮬레이션
+    const dummyTicket = "DUMMY-TICKET-12345";
+    alert("인증 티켓을 획득했습니다: " + dummyTicket);
+    location.href = "sso.html?ticket=" + encodeURIComponent(dummyTicket);
+  }
+
+  function noConfirmClose() {
+    // 데모용으로 닫힘 동작은 생략
+  }
+</script>
+
+</body>
+</html>
