@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>예약 현황 (데모)</title>
+  <link rel="stylesheet" href="./static/css/style.css">
+  <script src="./static/js/jquery.min.js"></script>
+  <style>
+    .calendar-inner-table { border: 1px solid #ccc; padding: 20px; min-height: 200px; }
+    .calendar_cnt { margin: 5px 0; background: #eef; padding: 5px; cursor: pointer; }
+    .hour-reservation-area { margin-bottom: 15px; }
+    .hour-reservation-box { border: 1px solid #ddd; padding: 10px; background: #f9f9f9; }
+  </style>
+</head>
+<body>
+
+<!-- begin page-header -->
+<div class="page-header">
+  예약 현황
+</div>
+<!-- end page-header -->
+
+<!-- begin table -->
+<div class="row mrg-top-20">
+  <div class="width-70 pull-left">
+    <div class="calendar-inner-table" id="monCalendar">
+      <div id="calendar_20250613">2025-06-13</div>
+      <div id="calendar_20250615">2025-06-15</div>
+      <div id="calendar_20250618">2025-06-18</div>
+    </div>
+  </div>
+  <div class="width-28 pull-right" id="hourly_reservation_list">
+    <h2 class="hour-reservation-title">시간대별 예약 내역</h2>
+  </div>
+</div>
+<!-- end table -->
+
+<!-- 팝업 HTML (간략 시뮬레이션) -->
+<div id="popupReservationStatus" style="display:none; border: 1px solid #aaa; padding: 10px; background: #fff; position: fixed; top: 30%; left: 30%;">
+  <p>예약 상세 정보 팝업 (예시)</p>
+  <button onclick="$('#popupReservationStatus').hide()">닫기</button>
+</div>
+
+<script>
+  $(document).ready(function() {
+    getMonthlyList();
+    getHourlyList();
+  });
+
+  function getMonthlyList() {
+    const dummyData = [
+      { pengagYms: "20250613", sectionNumber: 3 },
+      { pengagYms: "20250615", sectionNumber: 2 },
+      { pengagYms: "20250618", sectionNumber: 1 },
+    ];
+
+    dummyData.forEach(function(item) {
+      $('#calendar_' + item.pengagYms).after(
+        `<div class="calendar_cnt" data-calendar-id="${item.pengagYms}/${item.sectionNumber}">
+          예약 ${item.sectionNumber}건
+        </div>`
+      );
+    });
+
+    callReservationPopup();
+  }
+
+  function getHourlyList() {
+    const html = `
+      <div class="hour-reservation-area">
+        <h3>오늘 (2025.06.12)</h3>
+        <div class="hour-reservation-box">
+          <div><p>10:00</p><p>2건</p></div>
+          <div><p>13:00</p><p>1건</p></div>
+        </div>
+      </div>
+      <div class="hour-reservation-area">
+        <h3>내일 (2025.06.13)</h3>
+        <div class="hour-reservation-box">
+          <div><p>11:00</p><p>3건</p></div>
+        </div>
+      </div>
+    `;
+    $("#hourly_reservation_list").append(html);
+  }
+
+  function callReservationPopup() {
+    $(`[data-calendar-id]`).off("click");
+    $(`[data-calendar-id]`).on("click", function() {
+      $('#popupReservationStatus').show();
+    });
+  }
+</script>
+
+</body>
+</html>
