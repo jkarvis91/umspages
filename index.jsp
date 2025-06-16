@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>::: Message Center :::</title>
+</head>
+<body>
+
+<script type="text/javascript">
+  // 실제 환경에선 SSO Client 인증을 수행합니다.
+  // 데모에서는 이를 생략합니다.
+
+  // 더미 분기 처리
+  const isLocal = true; // 실제 환경에서 'odinue_local' 대신
+  if (isLocal) {
+    window.location.href = "login.html";  // 데모용 로그인 화면으로 이동
+  } else {
+    // 실제 인증 시나리오 시뮬레이션
+    const userConfirmed = confirm("SSO Client가 감지되지 않았습니다.\n수동 설치 페이지로 이동하시겠습니까?");
+    if (userConfirmed) {
+      window.location.href = "https://example.com/sso-installer.html";
+    } else {
+      window.location.href = "motp_login.html";
+    }
+  }
+</script>
+
+</body>
+</html>
