@@ -1,16 +1,22 @@
+---
+layout: layout
+title: 예약 현황 상세
+---
+
 <!--popup-->
 <div id="popupReservationStatus" class="modalPopup hide" style="width: 900px">
   <div class="modal-header"><h1>예약 현황 상세</h1></div>
   <div class="modal-body">
     <div class="popup-title-info">
-      <span class="split" id="pengagYmsTxt">2025-06-12</span>
+      <span class="split" id="pengagYmsTxt">2025-06-18</span>
       <span class="font-size-12 mrg-left-10">총 <span id="sectionNumber">3</span>건 예약</span>
     </div>
+    <!-- begin table -->
     <div class="row">
       <div class="table-result">
         총 <strong class="split" id="dailyTotCnt">3</strong>
-        <select class="search-limit" onchange="changeDailyPageSize(this)" id="dailyPageSize">
-          <option value="5">5개씩 보기</option>
+        <select class="search-limit" id="dailyPageSize">
+          <option value="5" selected>5개씩 보기</option>
           <option value="10">10개씩 보기</option>
           <option value="20">20개씩 보기</option>
           <option value="30">30개씩 보기</option>
@@ -41,30 +47,21 @@
           <tbody id="dailyGrid">
             <tr>
               <td>1</td>
-              <td>예약 알림</td>
+              <td>주간보고</td>
               <td>SMS</td>
-              <td>홍보팀</td>
+              <td>총무부</td>
               <td>홍길동</td>
-              <td>1</td>
+              <td>2</td>
               <td>10:00</td>
             </tr>
             <tr>
               <td>2</td>
-              <td>예약 안내</td>
+              <td>회의공지</td>
               <td>MMS</td>
-              <td>기획팀</td>
-              <td>김철수</td>
+              <td>기획부</td>
+              <td>김유신</td>
               <td>1</td>
-              <td>11:30</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>예약 리마인드</td>
-              <td>SMS</td>
-              <td>운영팀</td>
-              <td>이영희</td>
-              <td>1</td>
-              <td>14:15</td>
+              <td>14:30</td>
             </tr>
           </tbody>
         </table>
@@ -73,26 +70,19 @@
         <ul class="twbsPagination"></ul>
       </div>
     </div>
+    <!-- end Table -->
   </div>
   <div class="modal-footer">
-    <a href="javascript:;" class="btn btn-border-sub1 popupReservationStatus_close" onclick="hidePopup()">닫기</a>
+    <a href="javascript:;" class="btn btn-border-sub1 popupReservationStatus_close" >닫기</a>
   </div>
-  <input type="hidden" value="20250612" id="pengagYms"/>
+  <input type="hidden" value="20250618" id="pengagYms"/>
 </div>
 <!--//popup-->
 
-<script>
-  function changeDailyPageSize(evnt) {
-    alert("데모용: 페이지 수를 " + evnt.value + "개씩 보기로 변경했습니다.");
-  }
-
-  // 팝업 표시 함수
-  function showPopup() {
-    document.getElementById("popupReservationStatus").classList.remove("hide");
-  }
-
-  // 팝업 숨기기 함수
-  function hidePopup() {
-    document.getElementById("popupReservationStatus").classList.add("hide");
-  }
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("dailyPageSize").addEventListener("change", function () {
+      alert("페이지 사이즈 변경 예시: " + this.value);
+    });
+  });
 </script>
