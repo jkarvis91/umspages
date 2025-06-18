@@ -1,0 +1,149 @@
+<!-- begin sidebar -->
+<div class="sidebar">
+  <div data-scrollbar="true" data-height="100%">
+    <ul class="nav font-size-12 left-menu">
+
+      <!-- 문자보내기 -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-send">
+          <b class="caret pull-right"></b>
+          <span>문자보내기</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/message.html' | relative_url }}" id="message_link">일반보내기</a></li>
+          <li><a href="{{ '/filesend.html' | relative_url }}" id="filesend_link">파일대량보내기</a></li>
+          <li><a href="{{ '/eventsend.html' | relative_url }}" id="eventmessage_link">경조사보내기</a></li>
+          <li><a href="{{ '/emplsms/emplsend.html' | relative_url }}" id="emplsend_link">직원용 SMS 발송</a></li>
+        </ul>
+      </li>
+
+      <!-- 메시지함 -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-messagebox">
+          <b class="caret pull-right"></b>
+          <span>메시지함</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/mymessage.html' | relative_url }}" id="mymessage_link">내가 보낸메시지</a></li>
+          <li><a href="{{ '/reservedmessage.html' | relative_url }}" id="reservedmessage_link">예약 메시지</a></li>
+        </ul>
+      </li>
+
+      <!-- 서식함 -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-form">
+          <b class="caret pull-right"></b>
+          <span>서식함</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/form/happy.html' | relative_url }}" id="happy_link">해피콜문자</a></li>
+          <li><a href="{{ '/form/head.html' | relative_url }}" id="head_link">본부양식</a></li>
+          <li><a href="{{ '/form/personal.html' | relative_url }}" id="personal_link">개인서식함</a></li>
+          <li><a href="{{ '/form/dept.html' | relative_url }}" id="dept_link">부서서식함</a></li>
+        </ul>
+      </li>
+
+      <!-- 주소록 -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-address">
+          <b class="caret pull-right"></b>
+          <span>주소록</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/all-address.html' | relative_url }}" id="all_address_link">전체주소록</a></li>
+          <li><a href="{{ '/personal-address.html' | relative_url }}" id="personal_address_link">개인주소록</a></li>
+          <li><a href="{{ '/share-address.html' | relative_url }}" id="share_address_link">부서공유주소록</a></li>
+          <li><a href="{{ '/upload-address.html' | relative_url }}" id="fileupload_address_link">주소록파일등록</a></li>
+        </ul>
+      </li>
+
+      <!-- 환경설정 -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-setting">
+          <b class="caret pull-right"></b>
+          <span>환경설정</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/envset.html' | relative_url }}" id="envset_link">경조사메시지 수신설정</a></li>
+          <li><a href="{{ '/smsUnsubscribe.html' | relative_url }}" id="smsUnsubscribe_link">고객수신거부관리</a></li>
+          <li><a href="{{ '/changepassword.html' | relative_url }}" id="changePassword_link">비밀번호변경</a></li>
+        </ul>
+      </li>
+
+      <!-- 대량 SMS -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-request">
+          <b class="caret pull-right"></b>
+          <span>대량SMS 발송의뢰</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/smsreq2.html' | relative_url }}" id="smsreq_link">SMS발송 의뢰하기</a></li>
+          <li><a href="{{ '/smssendlist.html' | relative_url }}" id="smssendlist_link">SMS발송 진행현황</a></li>
+        </ul>
+      </li>
+
+      <!-- 운영관리 -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-admin">
+          <b class="caret pull-right"></b>
+          <span>운영관리</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/admin/user.html' | relative_url }}" id="user_link">SSO 로그인 권한관리</a></li>
+          <li><a href="{{ '/admin/directlogin.html' | relative_url }}" id="directlogin_link">로그인사용자 관리</a></li>
+          <li><a href="{{ '/admin/motplogin.html' | relative_url }}" id="motplogin_link">MOTP사용자 관리</a></li>
+          <li><a href="{{ '/admin/notice.html' | relative_url }}" id="notice_link">공지사항</a></li>
+          <li><a href="{{ '/admin/login-history.html' | relative_url }}" id="login_history_link">로그인이력 조회</a></li>
+          <li><a href="{{ '/template-list.html' | relative_url }}" id="template_link">MMS 템플릿 관리</a></li>
+        </ul>
+      </li>
+
+      <!-- 매뉴얼 다운로드 -->
+      <li class="has-sub">
+        <a href="{{ '/address/download/sample/manual' | relative_url }}" class="icon-download-document">
+          <span>메뉴얼 다운로드</span>
+        </a>
+      </li>
+
+      <!-- 대량문자 -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-lms">
+          <b class="caret pull-right"></b>
+          <span>대량문자</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/campaign/reservationStatus.html' | relative_url }}">예약 현황</a></li>
+          <li><a href="{{ '/campaign/smsreq.html' | relative_url }}">등록하기</a></li>
+          <li><a href="{{ '/campaign/sendStatus.html' | relative_url }}">발송 현황</a></li>
+          <li><a href="{{ '/campaign/sendStatistics.html' | relative_url }}">발송 통계</a></li>
+        </ul>
+      </li>
+
+      <!-- 템플릿 관리 -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-center">
+          <b class="caret pull-right"></b>
+          <span>템플릿 관리</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/campaign/rcsTemplate.html' | relative_url }}">RCS 템플릿</a></li>
+          <li><a href="{{ '/campaign/alimTalkTemplate.html' | relative_url }}">알림톡 템플릿</a></li>
+          <li><a href="{{ '/campaign/rcsBrand.html' | relative_url }}">RCS 브랜드/발신번호</a></li>
+        </ul>
+      </li>
+
+      <!-- 권한 관리 -->
+      <li class="has-sub">
+        <a href="javascript:;" class="icon-key">
+          <b class="caret pull-right"></b>
+          <span>권한 관리</span>
+        </a>
+        <ul class="sub-menu">
+          <li><a href="{{ '/campaign/authUser.html' | relative_url }}">권한 사용자 부여</a></li>
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<!-- end sidebar -->
