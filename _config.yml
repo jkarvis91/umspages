@@ -8,7 +8,7 @@ defaults:
       path: ""
       type: "pages"
     values:
-      layout: default
+      layout: layout
 
 include:
   - _includes
