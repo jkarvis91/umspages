@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>::: Message Center :::</title>
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="./static/images/favicon.ico" />
+
+  <!-- base style -->
+  <link rel="stylesheet" href="./static/v2/css/common.css" />
+
+  <!-- vendor & common scripts -->
+  <script src="./static/js/datatables.min.js"></script>
+  <script src="./static/v2/js/buttons.html5.min.js"></script>
+  <script src="./static/v2/js/buttons.print.min.js"></script>
+  <script src="./static/v2/js/dataTables.button.js"></script>
+  <script src="./static/v2/js/jszip.js"></script>
+  <script src="./static/v2/js/vfs_fonts.js"></script>
+  <script src="./static/v2/js/jquery.slimscroll.min.js"></script>
+  <script src="./static/v2/js/common.js"></script>
+
+  <!-- lightweight HTML partial loader -->
+</head>
+<body>
+  <!-- skip navigation -->
+  <nav id="skipNavi">
+    <ul>
+      <li><a href="#nav">주메뉴 바로가기</a></li>
+      <li><a href="#content">본문 바로가기</a></li>
+    </ul>
+  </nav>
+
+  <!-- wrapper -->
+  <div class="wrapper">
+    <!-- header -->
+	{% include header.html %}
+
+    <!-- section -->
+    <section>
+	  {% include side-menu.html %}
+
+      <!-- article -->
+      <article>
+        <div class="contents">
+          {{ content }}
+        </div>
+      </article>
+      <!-- //article -->
+    </section>
+    <!-- //section -->
+  </div>
+  <!-- //wrapper -->
+
+  <footer class="footer">
+    Copyright &copy; <span id="year"></span> All rights reserved.
+  </footer>
+
+  <script>
+    // auto‑update footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
