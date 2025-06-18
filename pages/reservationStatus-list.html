@@ -1,6 +1,7 @@
 ---
 layout: layout
 ---
+
 <!-- begin page-header -->
 <div class="page-header">
     예약 현황
@@ -38,7 +39,8 @@ layout: layout
 </div>
 <!-- end table -->
 
-{% include dialog/reservationPopup.html %}
+<!-- JSP 파일 그대로 변환된 HTML include -->
+{% include dialog/reservationSelectDay-list.html %}
 
 <!-- 기존 JS 및 CSS 적용을 위한 링크 추가 -->
 <link rel="stylesheet" href="{{ '/static/css/default.css' | relative_url }}">
@@ -69,8 +71,8 @@ layout: layout
   document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('[data-calendar-id]').forEach(function (el) {
       el.addEventListener("click", function () {
-        alert("예약 상세 팝업: " + el.getAttribute("data-calendar-id"));
+        alert("예약 상세 팝업 예시입니다: " + el.getAttribute("data-calendar-id"));
       });
-  });
+    });
   });
 </script>
