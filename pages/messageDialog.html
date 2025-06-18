@@ -1,0 +1,113 @@
+<div class="alert_wrap" id="alert-modal" style="display: none">
+  <div class="content_alert" id="alert-message">
+    <!-- Message -->
+  </div>
+  <div class="footer_alert">
+    <a href="javascript:;" class="btn_big blue" id="alert-dialog-close">확인</a>
+  </div>
+</div>
+
+<div class="popup_wrap_s" id="confirm-dialog" style="display: none">
+  <div class="top">
+    <div class="title">삭제</div>
+    <div class="btn_close">
+      <a href="javascript:;" class="confirm-dialog-close">
+        <img src="{{ '/static/images/btn_pop_close.png' | relative_url }}" alt="닫기"/>
+      </a>
+    </div>
+  </div>
+  <div class="content_pop" id="confirm-message">
+    <!-- Message -->
+  </div>
+  <div class="footer_pop">
+    <a href="javascript:;" class="btn_big blue" id="confirm-yes-btn">예</a>
+    <a href="javascript:;" class="btn_big gray confirm-dialog-close">아니오</a>
+  </div>
+</div>
+
+<div class="popup_wrap_s" id="send-dialog" style="display: none">
+  <div class="top">
+    <div class="title">발송</div>
+    <div class="btn_close">
+      <a href="javascript:;" class="send-dialog-close">
+        <img src="{{ '/static/images/btn_pop_close.png' | relative_url }}" alt="닫기"/>
+      </a>
+    </div>
+  </div>
+  <div class="content_pop" id="send-dialog-message">
+    <!-- Message -->
+  </div>
+  <div class="footer_pop">
+    <a href="javascript:;" class="btn_big blue" id="send-dialog-yes">예</a>
+    <a href="javascript:;" class="btn_big gray send-dialog-close">아니오</a>
+  </div>
+</div>
+
+<script>
+function showAlert(message, callback) {
+  document.getElementById("alert-message").innerHTML = message;
+  document.getElementById("alert-dialog-close").onclick = function () {
+    if (callback) callback();
+    $("#alert-modal").dialog("close");
+  };
+  $("#alert-modal").dialog({ modal: true, width: "400px" });
+  $(".ui-dialog-titlebar").hide();
+}
+
+function showConfirmCancel(message, callback, cancelMsg) {
+  const cancelMessage = cancelMsg || "취소 하였습니다.";
+  document.getElementById("confirm-message").innerHTML = message;
+
+  $(".confirm-dialog-close").off("click").on("click", () => {
+    $("#confirm-dialog").dialog("close");
+  });
+
+  $("#confirm-yes-btn").off("click").on("click", () => {
+    $("#confirm-dialog").dialog("close");
+    if (callback) callback();
+    showAlert(cancelMessage);
+  });
+
+  $("#confirm-dialog").dialog({ modal: true, width: "400px", open: function () {
+    $(this).css("padding", "0px");
+  }});
+  $(".ui-dialog-titlebar").hide();
+}
+
+function showConfirmSend(message, callback, callbackParam) {
+  document.getElementById("send-dialog-message").innerHTML = message;
+
+  $(".send-dialog-close").off("click").on("click", () => {
+    $("#send-dialog").dialog("close");
+  });
+
+  $("#send-dialog-yes").off("click").on("click", () => {
+    if (callback) callback(callbackParam);
+    $("#send-dialog").dialog("close");
+  });
+
+  $("#send-dialog").dialog({ modal: true, width: "400px", open: function () {
+    $(this).css("padding", "0px");
+  }});
+  $(".ui-dialog-titlebar").hide();
+}
+
+function showConfirmForAjax(message, callback, targetObject) {
+  document.getElementById("confirm-message").innerHTML = message;
+
+  $(".confirm-dialog-close").on("click", () => {
+    $("#confirm-dialog").dialog("close");
+  });
+
+  $("#confirm-yes-btn").on("click", () => {
+    callback(targetObject);
+    targetObject = [];
+    $("#confirm-dialog").dialog("close");
+  });
+
+  $("#confirm-dialog").dialog({ modal: true, width: "400px", open: function () {
+    $(this).css("padding", "0px");
+  }});
+  $(".ui-dialog-titlebar").hide();
+}
+</script>
