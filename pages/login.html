@@ -7,13 +7,39 @@ layout: null
 <head>
   <meta charset="UTF-8">
   <title>메시지센터 로그인</title>
-  <link rel="stylesheet" href="{{ site.baseurl }}/static/v2/css/common.css">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-	  if (typeof jQuery === 'undefined') {
-		document.write('<script src="{{ site.baseurl }}/static/js/jquery.min.js"><\/script>');
-	  }
-	</script>
+  <link href="{{ '/static/images/favicon.ico' | relative_url }}" rel="shortcut icon">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ '/static/v2/css/common.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/jquery-ui.min.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/datatables.min.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/default.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/login.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/table.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/summernote-lite.css' | relative_url }}">
+
+  <!-- JavaScript -->
+  <script src="{{ '/static/js/jquery.3.3.1.js' | relative_url }}"></script>
+  <script src="{{ '/static/js/jquery-ui.min.js' | relative_url }}"></script>
+  <script src="{{ '/static/js/moments.js' | relative_url }}"></script>
+  <script src="{{ '/static/js/jquery.number.js' | relative_url }}"></script>
+  <script src="{{ '/static/js/jquery.bpopup-min.js' | relative_url }}"></script>
+  <script src="{{ '/static/js/article-hide.js' | relative_url }}"></script>
+  <script src="{{ '/static/js/common/sha256.js' | relative_url }}"></script>
+  <script src="{{ '/static/js/common/zoom.js' | relative_url }}"></script>
+  <script src="{{ '/static/js/datatables.min.js' | relative_url }}"></script>
+  <script src="{{ '/static/v2/js/buttons.html5.min.js' | relative_url }}"></script>
+  <script src="{{ '/static/v2/js/buttons.print.min.js' | relative_url }}"></script>
+  <script src="{{ '/static/v2/js/dataTables.button.js' | relative_url }}"></script>
+  <script src="{{ '/static/v2/js/jszip.js' | relative_url }}"></script>
+  <script src="{{ '/static/v2/js/vfs_fonts.js' | relative_url }}"></script>
+  <script src="{{ '/static/v2/js/jquery.slimscroll.min.js' | relative_url }}"></script>
+  <script src="{{ '/static/v2/js/common.js' | relative_url }}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    if (typeof jQuery === 'undefined') {
+	document.write('<script src="{{ site.baseurl }}/static/js/jquery.min.js"><\/script>');
+    }
+  </script>
   <script src="{{ site.baseurl }}/static/js/sha256.js"></script>
 </head>
 <body>
@@ -47,6 +73,17 @@ layout: null
     </div>
 </div>
 <!-- //wrap_login -->
+<script src="{{ '/static/js/tabcontent.js' | relative_url }}"></script>
+<script src="{{ '/static/js/messageUtil.js' | relative_url }}"></script>
+<script src="{{ '/static/js/UmsValidation.js' | relative_url }}"></script>
+<script src="{{ '/static/js/UmsInitData.js' | relative_url }}"></script>
+<script src="{{ '/static/js/UmsZoomInOut.js' | relative_url }}"></script>
+<script src="{{ '/static/js/common/sha256.js' | relative_url }}"></script>
+
+
+<!-- {% include messageDialog.html %} -->
+<!-- {% include loading.html %} -->
+	
 <script>
 function showAlert(message, callback) {
     alert(message);
