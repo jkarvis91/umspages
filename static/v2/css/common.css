@@ -1,0 +1,188 @@
+* { padding: 0; margin: 0; }
+
+/*--------------------------------------------------------------
+# v1
+--------------------------------------------------------------*/
+.wrapper{margin: 0 auto; padding:0; width:100%; min-height:100%; min-width:1220px; overflow:hidden; position:relative;}
+#skipNavi{position:absolute; width:500px; height:0;margin:0 auto; z-index:10000; }
+#skipNavi a{display:block; position:absolute; top:-500px; left:0; overflow:hidden;}
+
+/*--------------------------------------------------------------
+# v1 overwrite
+--------------------------------------------------------------*/
+body .weap_Event_Login .box_login {margin-right: 150px;}
+body .ui-dialog{z-index:1021;}
+
+/*--------------------------------------------------------------
+# Common Style
+--------------------------------------------------------------*/
+.pull-right { float: right !important; }
+.border-none {border: none;}
+
+/*--------------------------------------------------------------
+# btn
+--------------------------------------------------------------*/
+.btn {display: inline-block;padding: 0px 10px;height: 32px;line-height: 28px;font-size: 14px;text-align: center;white-space: nowrap;-ms-touch-action: manipulation;touch-action: manipulation;cursor: pointer;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-image: none;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;min-width: 100px;}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+header {position: fixed;top: 0;right: 0;left: 0;min-height: 50px;line-height: 50px;background-color: #ffffff;z-index: 1020;box-shadow: 0 4px 4px -4px #bfbfbf;}
+.header-left { float:left; padding: 0; height:inherit; line-height: inherit; color: #333; font-weight: 500; margin-right:50px; }
+.header-left img {height: 30px;line-height: 30px;vertical-align: middle;padding-left: 20px;}
+
+.header-nav { float:left; }
+.header-nav .nav { float: left; margin: 0; padding-left: 0; list-style: none; }
+.header-nav .nav > li { float: left; position: relative; display: block; font-size: 12px; color: #585663; }
+.header-nav .nav > li > a { height:inherit; line-height: inherit; padding-right: 15px; position: relative; display: block; }
+
+.header-center { position: absolute; left: 220px; height: 53px; transform: translate(0%, 15%); }
+.header-center .navbar-nav { list-style-type: none; margin: 0; padding: 0; display: -webkit-box; display: -ms-flexbox; display: flex; height: 40px; line-height: 40px; }
+.header-center .navbar-item { /* margin-right: 30px; */ padding: 0 20px; margin-right: 10px; }
+.header-center .navbar-item.active { background: #00acac; color: #fff; border-radius: 5px; }
+
+.header-right {float:right;}
+.header-right .user-nm { color: #555; font-size:12px; font-weight: 400;}
+.header-right .nav { float: left; margin: 0; padding-left: 0; list-style: none; }
+.header-right .nav > li {float: left;position: relative;display: block;font-size: 12px;color: #585663;padding: 0 5px;height: 50px;line-height: 50px;}
+.header-right .nav > li > a { height:inherit; line-height: inherit; padding-right: 35px; position: relative; display: block; }
+.header-right .nav > li > a .label { position: absolute;  top: 7px; right: 3px; display: block; background: #ff5b57; line-height: 12px; font-weight: 300; padding: .3em .6em; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; }
+.btn-logout {background: #fff;color: #666666;border: 1px solid #666666;height: 25px;line-height: 25px;width: 70px;min-width: 70px;padding: 0;margin: 0 30px 0 17px;font-size: 12px;vertical-align: baseline;}
+.header-right .nav .navbar-form { border-color: #e7e7e7; width: auto; border: 0; -webkit-box-shadow: none; box-shadow: none; }
+.header-right .nav .navbar-form .form-group { display: inline-block; margin-bottom: 0; vertical-align: middle; }
+.header-right .nav .navbar-form .form-control { display: inline-block; vertical-align: middle; width: 200px; padding: 5px 15px; height: 30px; -webkit-border-radius: 30px; -moz-border-radius: 30px; border-radius: 30px; }
+.header-right .nav .navbar-form .btn-search { position: absolute; right: 15px; top: 9px; height: 30px; line-height: 30px; padding-top: 5px; padding-bottom: 5px; border: none; background: 0 0; -webkit-border-radius: 0 30px 30px 0; -moz-border-radius: 0 30px 30px 0; border-radius: 0 30px 30px 0; color:inherit; }
+.header-right .nav .dropdown-menu.notification-list { max-width: 280px; padding: 0; }
+.header-right .nav .dropdown-menu.notification-list { right: 0; left: auto; }
+.header-right .nav .dropdown-menu.notification-list .dropdown-header { padding: 10px 20px !important; background: #fafafa; }
+.header-right .nav .dropdown-header { display: block; font-size: 12px; line-height: 1.42857143; color: #777; white-space: nowrap; font-size: 14px; font-weight: 700; color: #242a30; padding: 0; margin: 0 0 10px; }
+.header-right .nav .dropdown-menu.notification-list > li { margin-top: 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: -1px; overflow: hidden; zoom: 1; padding: 5px 0px !important; }
+.header-right .nav .dropdown-menu.notification-list .notification-left {  display: table-cell; vertical-align: top; padding-right: 10px; }
+.header-right .nav .dropdown-menu.notification-list .notification-left i { height: 36px; width: 36px; line-height: 36px; font-size: 14px; color: #fff; text-align: center; -webkit-border-radius: 50%; -moz-border-radius: 50%; border-radius: 50%; background: #ff5b57!important; }
+.header-right .nav .dropdown-menu.notification-list .notification-left img { height: 36px; width: 36px; line-height: 36px; font-size: 14px; color: #fff; text-align: center; -webkit-border-radius: 50%; -moz-border-radius: 50%; border-radius: 50%; background: #ff5b57!important; }
+.header-right .nav .dropdown-menu.notification-list .notification-body { overflow: hidden; zoom: 1; display: table-cell; vertical-align: top; }
+.header-right .nav .dropdown-menu.notification-list .notification-body h6 { font-size: 12px; color: #242a30; margin-top: 0; margin-bottom: 5px; font-weight: 600; }
+.header-right .nav .dropdown-menu.notification-list .notification-body .timeago { color: #777;}
+.header-right .nav .dropdown-menu.notification-list .notification-body p { text-overflow: ellipsis; overflow: hidden; white-space: nowrap;  max-width: 200px; }
+.header-right .nav .dropdown.navbar-user img { float: left; width: 30px; height: 30px; margin: 10px 5px 0 0; -webkit-border-radius: 30px; -moz-border-radius: 30px; border-radius: 30px; max-width: none; }
+.header-right .nav .dropdown.navbar-user ul { left: -10px; }
+
+/*--------------------------------------------------------------
+# sidebar
+--------------------------------------------------------------*/
+.sidebar { position: fixed; top: 0; bottom: 0; background: #2178c8; left: 0; width: 200px; height:100%; z-index: 1010; padding-top: 50px; }
+.sidebar .nav>li.nav-profile { padding: 20px; color: #fff; background: #1a2229; }
+.sidebar .nav>li.nav-profile .image { float: left; width: 34px; height: 34px; margin-top: 2px; margin-right: 15px; overflow: hidden; -webkit-border-radius: 50%; -moz-border-radius: 50%; border-radius: 50%; }
+.sidebar .nav>li.nav-profile .image img { max-width: 100%; max-height: 100%; }
+.sidebar .nav>li.nav-profile .info { font-size: 14px; }
+.sidebar .nav>li.nav-profile .info small { display: block; color: #889097; font-size: 85%; }
+.sidebar .nav>li.nav-header { margin: 0; padding: 10px 20px; line-height: 20px; font-size: 11px; color: #6d7983; }
+.sidebar .nav>li>a { position: relative; display: block; }
+.sidebar .nav>li>a {padding: 15px 20px;line-height: 20px;color: #fff;border-bottom: 1px solid #488fcf;font-size: 16px;font-weight: normal;}
+.sidebar .sub-menu {padding: 10px 0 10px 42px;margin: 0;background: #004898;position: relative;display: none;}
+.sidebar .sub-menu>li>a {padding: 10px 0px;display: block;color: #fff;text-decoration: none;position: relative;font-size: 14px;}
+.sidebar .sub-menu>li.active>a,.sidebar .sub-menu>li.active>a:focus,.sidebar .sub-menu>li.active>a:hover,.sidebar .sub-menu>li>a:focus,.sidebar .sub-menu>li>a:hover {color: #fff;font-weight: bold;}
+.sidebar .nav>li li.has-sub.active>a { color: #fff; }
+.sidebar .sub-menu>li.active>a:before { color: #00acac; }
+.sidebar .nav .sub-menu>li>a .caret { float: right; margin-top: 7px }
+.sidebar .nav>li>a .caret {display: block;width: 8px;height: 8px;border-top: 1px solid #fff;border-right: 1px solid #fff;-webkit-transform: rotate(-227deg);transform: rotate(-227deg);position: absolute;right: 22px;top: 17px;margin-left: unset;border-left: unset;}
+.sidebar .nav>li.expand>a .caret {-webkit-transform: rotate(-45deg);transform: rotate(-45deg);top: 23px;}
+
+
+.sidebar .nav>li.active>a, .sidebar .nav>li.active>a:focus, .sidebar .nav>li.active>a:hover {font-weight: bold;font-size: 14px;}
+.sidebar .has-sub.active>.sub-menu { display: block; }
+.sidebar .has-sub>.sub-menu > li.active > a:before {content:'▶';position: absolute;left: -17px;color: #fff;top: 9px;font-size: 12px;}
+.sidebar .nav>li>a .badge { margin-top: 1px; padding: 3px 8px; background: #1b1f24; font-weight: 300; font-size: 10px; }
+.sidebar .nav>li>a {background-repeat: no-repeat;background-position: left 20px center;padding-left: 40px;}
+
+.icon-sms { background-image: url('../img/icon-sms.png'); }
+.icon-lms { background-image: url('../img/icon-lms.png'); }
+.icon-admin { background-image: url('../img/icon-admin.png'); }
+.icon-center { background-image: url('../img/icon-center.png'); }
+.icon-messagebox {background-image: url('../img/icon-messagebox.png'); background-size:16px}
+.icon-setting { background-image: url('../img/icon-setting.png'); background-size:15px}
+.icon-form { background-image: url('../img/icon-pencil.png'); background-size:19px}
+.icon-address { background-image: url('../img/icon-address.png'); background-size:17px}
+.icon-download-document { background-image: url('../img/icon-download-document.png'); background-size:17px}
+.icon-request { background-image: url('../img/icon-request.png'); background-size:17px}
+.icon-key { background-image: url('../img/icon-key.png'); background-size:17px}
+.icon-lock { background-image: url('../img/icon-lock.png'); background-size:17px}
+.icon-send { background-image: url('../img/icon-send.png'); background-size:17px}
+
+/*--------------------------------------------------------------
+# content
+--------------------------------------------------------------*/
+.contents {margin-left: 200px;padding: 50px 30px 64px 30px;}
+.page-header, article .contents>h3 {font-size: 18px;margin: 0;padding: 0;font-weight: bold;border-bottom: 1px solid #999;height: 51px;line-height: 51px;color: #333; font-family:'Nanum Gothic','Dotum','Gulim','tahoma';}
+.breadcrumb {padding: 0;margin: 0;background: 0 0;list-style: none;border-radius: 4px;font-weight: 300;font-size: 11px;color: #999999;}
+.breadcrumb>li.home:before {content:' ';background-image: url('../img/icon-home.png');background-position: center left;background-size: 8px 10px;background-repeat: no-repeat;padding-left: 13px;}
+.breadcrumb>li {display: inline-block;line-height: 28px;position: relative;}
+.breadcrumb>li a { color: #333; }
+.breadcrumb>li+li:before { padding: 0 5px; color: #ccc; content: "/\00a0"; }
+.breadcrumb>.active {font-weight: bold;}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+.footer {position: fixed;padding-left: 230px;bottom: 0;left: 0;right: 0;height: 34px;line-height: 34px;color: #aaaaaa;background: #f8f8f8;font-size: 12px;z-index: 1000;}
+
+/*--------------------------------------------------------------
+# font-size
+--------------------------------------------------------------*/
+.font-size-8   { font-size: 8px !important; }
+.font-size-9   { font-size: 9px !important; }
+.font-size-10  { font-size: 10px !important; }
+.font-size-11  { font-size: 11px !important; }
+.font-size-12  { font-size: 12px !important; }
+.font-size-13  { font-size: 13px !important; }
+.font-size-14  { font-size: 14px !important; }
+.font-size-15  { font-size: 15px !important; }
+.font-size-16  { font-size: 16px !important; }
+.font-size-17  { font-size: 17px !important; }
+.font-size-18  { font-size: 18px !important; }
+.font-size-19  { font-size: 19px !important; }
+.font-size-20  { font-size: 20px !important; }
+.font-size-21  { font-size: 21px !important; }
+.font-size-22  { font-size: 22px !important; }
+.font-size-23  { font-size: 23px !important; }
+.font-size-24  { font-size: 24px !important; }
+.font-size-25  { font-size: 25px !important; }
+.font-size-26  { font-size: 26px !important; }
+.font-size-27  { font-size: 27px !important; }
+.font-size-28  { font-size: 28px !important; }
+.font-size-29  { font-size: 29px !important; }
+.font-size-30  { font-size: 30px !important; }
+.font-size-35  { font-size: 35px !important; }
+.font-size-40  { font-size: 40px !important; }
+.font-size-45  { font-size: 45px !important; }
+.font-size-50  { font-size: 50px !important; }
+.font-size-55  { font-size: 55px !important; }
+.font-size-60  { font-size: 60px !important; }
+.font-size-65  { font-size: 65px !important; }
+.font-size-70  { font-size: 70px !important; }
+.font-size-75  { font-size: 75px !important; }
+.font-size-80  { font-size: 80px !important; }
+.font-size-85  { font-size: 85px !important; }
+.font-size-90  { font-size: 90px !important; }
+.font-size-95  { font-size: 95px !important; }
+.font-size-100 { font-size: 100px !important; }
+.font-size-105 { font-size: 105px !important; }
+.font-size-110 { font-size: 110px !important; }
+.font-size-115 { font-size: 115px !important; }
+.font-size-120 { font-size: 120px !important; }
+.font-size-125 { font-size: 125px !important; }
+.font-size-130 { font-size: 130px !important; }
+.font-size-135 { font-size: 135px !important; }
+.font-size-140 { font-size: 140px !important; }
+.font-size-145 { font-size: 145px !important; }
+.font-size-150 { font-size: 150px !important; }
+.font-size-155 { font-size: 155px !important; }
+.font-size-160 { font-size: 160px !important; }
+.font-size-165 { font-size: 165px !important; }
+.font-size-170 { font-size: 170px !important; }
+.font-size-175 { font-size: 175px !important; }
+.font-size-180 { font-size: 180px !important; }
+.font-size-185 { font-size: 185px !important; }
+.font-size-190 { font-size: 190px !important; }
+.font-size-195 { font-size: 195px !important; }
+.font-size-200 { font-size: 200px !important; }
