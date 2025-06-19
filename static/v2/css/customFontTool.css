@@ -1,0 +1,202 @@
+@charset "UTF-8";
+
+/* .text_items * { */
+:root{
+	--color_00: #404040;	
+	--color_01: #941527;	
+	--color_02: #b91724;	
+	--color_03: #bd462d;	
+	--color_04: #641432;	
+	--color_05: #c0537e;	
+	--color_06: #ac3f68;	
+	--color_07: #af6d4c;	
+	--color_08: #967240;	
+	--color_09: #583029;	
+	--color_10: #816d33;	
+	--color_11: #69692b;	
+	--color_12: #004326;	
+	--color_13: #155a10;	
+	--color_14: #3b7728;	
+	--color_15: #46804c;	
+	--color_16: #1a8b9e;	
+	--color_17: #1888c0;	
+	--color_18: #4483cf;	
+	--color_19: #0a386c;	
+	--color_20: #4d65cb;	
+	--color_21: #6264bb;	
+	--color_22: #665ba6;	
+	--color_23: #764f93;	
+	--color_24: #4e2d56;	
+	--color_25: #86487b;	
+	--color_26: #b85c9f;	
+	--color_27: #252525;	
+}
+
+	.cursor-pointer {cursor : pointer}
+	.fr {float:right}
+	.fl {float:left}
+
+	#rdoStyle>span {margin-top: 15px;}
+
+/* #rdoStyle * {border: 0.1px solid red} */
+	
+	.div-cell-area{position: relative;}
+	.custom_checkbox {display: inline-block;vertical-align: middle;display: inline-block!important;position: relative;}
+	.custom_radio input[type=radio]+label:before {display: block;content: "";position: absolute;top: 0;left: 0;
+    z-index: 1;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    /* border: 1px solid #ccc;
+    border-radius: 50%; */
+}
+	
+	.text_items {position: absolute;top: -28px;background: #f2f4ff;width: 127px;display: flex;justify-content: space-around;padding:2px}
+	.text_items input[type="radio"] + label:before, input[type="radio"] + label:after { border-radius :0}
+	.text_items input[type="checkbox"], .text_items input[type="radio"] {display: none;}
+	
+	.text_items .custom_checkbox input[type=checkbox]+label {padding-left: 0;font-size: 12px;color: #aaa;font-weight: 400;font-family: Dotum;}
+	.text_items .custom_checkbox.bold input[type=checkbox]+label {font-weight: 800;}
+	.text_items .custom_checkbox input[type=checkbox]:checked+label {color: #000;}
+	
+	.text_items>.custom_radio {width: 13px;height: 13px;} /*-webkit-box-sizing: border-box;box-sizing: border-box;margin-left: 20px;*/
+	.text_items>.custom_radio input[type=radio]+label {width: 16px;}	 
+	.text_items>.custom_radio input[type=radio]+label:before {width: 13px;}	
+	.text_items>.custom_radio.alignL input[type=radio]+label:before {  background: url('/static/v2/img/icon-align-left.png') center no-repeat; margin-top: 3px; background-size: 16px; image-rendering: pixelated;opacity: 0.2;}
+	.text_items>.custom_radio.alignL input[type=radio]:checked+label:before {  opacity: 1;}
+	.text_items>.custom_radio.alignR input[type=radio]+label:before {  background: url('/static/v2/img/icon-align-right.png') center no-repeat; margin-top: 3px; background-size: 16px; image-rendering: pixelated;opacity: 0.2;}
+	.text_items>.custom_radio.alignR input[type=radio]:checked+label:before {  opacity: 1;} 
+	
+	.custom_radio {display: inline-block;vertical-align: middle;position: relative;}
+/* 	.custom_radio input[type=radio] {display: block;position: absolute;top: -1px;left: -1px;width: 0;height: 0;opacity: 0;} */
+/* 	.custom_radio input[type=radio]+label {padding-left: 35px;line-height: 25px;font-size: 18px;color: #222;font-weight: 400;line-height: 1.4;cursor: pointer;} */
+	
+	/* 크기별 선택별 스타일 */
+ 	.text_items>.box_radio_size>.custom_radio input[type=radio]:checked+label {color: #222;}
+	.text_items>.box_radio_size>.custom_radio.sml input[type=radio]+label {font-size: 10px;}
+	.text_items>.box_radio_size>.custom_radio.mid input[type=radio]+label {font-size: 11px;}
+	.text_items>.box_radio_size>.custom_radio.big input[type=radio]+label {font-size: 14px;}
+	/*크기별 기본 스타일*/
+	.text_items>.box_radio_size>.custom_radio input[type=radio]+label {padding: 0;color: #aaa;line-height: inherit;font-weight:800}
+	
+	
+	.banner_item{height:100px;padding-top:20px;padding-bottom:20px;color:#8596c0;background-color:#fff}
+	
+	/* palette box */
+	.box_palette {display: inline-block;vertical-align: middle;display: inline-block;position: relative;}
+	.box_palette>.palette {position: absolute;top: 25px;left: -150px;border: 1px solid #ddd;width: 166px;padding: 4px;background: #fff;z-index:1}
+    .box_palette>.palette ul {display: flex;-webkit-box-pack: start;justify-content: flex-start;-webkit-box-align: start;align-items: flex-start;flex-wrap: wrap;}
+	.box_palette>.palette ul li {/* margin: 10px 0 0 10px;*/ margin:2px 5px; z-index:1}
+	
+	.box_palette .btn_color {display: block;position: relative;font-size: 12px;color: #000;font-weight: 700;}
+	.box_palette .btn_color:after {display: block;content: "";width: 12px;height: 3px;-webkit-box-sizing: border-box;box-sizing: border-box;    background: #aaa;    position: absolute;    bottom: 0;    left: 0;}
+    
+    .box_palette>.palette .custom_radio input[type=radio]+label {font-size: 0;}
+    .box_palette>.palette .custom_radio input[type=radio]+label:before {border-radius: 0;border: 1px solid #ddd;width: 16px;height: 16px;-webkit-box-sizing: border-box;box-sizing: border-box;}
+    .box_palette>.palette .custom_radio input[type=radio][name=palette]+label:before {position:initial}
+    .box_palette>.palette .custom_radio input[type=radio]:checked+label:before {border:2px soild red}
+    .box_palette>.palette .custom_radio input[type=radio]:active+label:before {background: transparent;}
+	.box_palette>.palette .custom_radio, .box_palette>.palette .custom_radio input[type=radio]+label {width: 16px;height: 16px;-webkit-box-sizing: border-box;box-sizing: border-box;}
+	
+	.box_palette>.palette .custom_radio.list00 input[type=radio]+label:before { background: var(--color_00);}
+	.box_palette>.palette .custom_radio.list01 input[type=radio]+label:before { background: var(--color_01);}
+	.box_palette>.palette .custom_radio.list02 input[type=radio]+label:before { background: var(--color_02);}
+	.box_palette>.palette .custom_radio.list03 input[type=radio]+label:before { background: var(--color_03);}
+	.box_palette>.palette .custom_radio.list04 input[type=radio]+label:before { background: var(--color_04);}
+	.box_palette>.palette .custom_radio.list05 input[type=radio]+label:before { background: var(--color_05);}
+	.box_palette>.palette .custom_radio.list06 input[type=radio]+label:before { background: var(--color_06);}
+	.box_palette>.palette .custom_radio.list07 input[type=radio]+label:before { background: var(--color_07);}
+	.box_palette>.palette .custom_radio.list08 input[type=radio]+label:before { background: var(--color_08);}
+	.box_palette>.palette .custom_radio.list09 input[type=radio]+label:before { background: var(--color_09);}
+	.box_palette>.palette .custom_radio.list10 input[type=radio]+label:before { background: var(--color_10);}
+	.box_palette>.palette .custom_radio.list11 input[type=radio]+label:before { background: var(--color_11);}
+	.box_palette>.palette .custom_radio.list12 input[type=radio]+label:before { background: var(--color_12);}
+	.box_palette>.palette .custom_radio.list13 input[type=radio]+label:before { background: var(--color_13);}
+	.box_palette>.palette .custom_radio.list14 input[type=radio]+label:before { background: var(--color_14);}
+	.box_palette>.palette .custom_radio.list15 input[type=radio]+label:before { background: var(--color_15);}
+	.box_palette>.palette .custom_radio.list16 input[type=radio]+label:before { background: var(--color_16);}
+	.box_palette>.palette .custom_radio.list17 input[type=radio]+label:before { background: var(--color_17);}
+	.box_palette>.palette .custom_radio.list18 input[type=radio]+label:before { background: var(--color_18);}
+	.box_palette>.palette .custom_radio.list19 input[type=radio]+label:before { background: var(--color_19);}
+	.box_palette>.palette .custom_radio.list20 input[type=radio]+label:before { background: var(--color_20);}
+	.box_palette>.palette .custom_radio.list21 input[type=radio]+label:before { background: var(--color_21);}
+	.box_palette>.palette .custom_radio.list22 input[type=radio]+label:before { background: var(--color_22);}
+	.box_palette>.palette .custom_radio.list23 input[type=radio]+label:before { background: var(--color_23);}
+	.box_palette>.palette .custom_radio.list24 input[type=radio]+label:before { background: var(--color_24);}
+	.box_palette>.palette .custom_radio.list25 input[type=radio]+label:before { background: var(--color_25);}
+	.box_palette>.palette .custom_radio.list26 input[type=radio]+label:before { background: var(--color_26);}
+	.box_palette>.palette .custom_radio.list27 input[type=radio]+label:before { background: var(--color_27);}
+	
+	.box_palette .btn_color.list00:after{background: var(--color_00);}
+	.box_palette .btn_color.list01:after{background: var(--color_01);}
+	.box_palette .btn_color.list02:after{background: var(--color_02);}
+	.box_palette .btn_color.list03:after{background: var(--color_03);}
+	.box_palette .btn_color.list04:after{background: var(--color_04);}
+	.box_palette .btn_color.list05:after{background: var(--color_05);}
+	.box_palette .btn_color.list06:after{background: var(--color_06);}
+	.box_palette .btn_color.list07:after{background: var(--color_07);}
+	.box_palette .btn_color.list08:after{background: var(--color_08);}
+	.box_palette .btn_color.list09:after{background: var(--color_09);}
+	.box_palette .btn_color.list10:after{background: var(--color_10);}
+	.box_palette .btn_color.list11:after{background: var(--color_11);}
+	.box_palette .btn_color.list12:after{background: var(--color_12);}
+	.box_palette .btn_color.list13:after{background: var(--color_13);}
+	.box_palette .btn_color.list14:after{background: var(--color_14);}
+	.box_palette .btn_color.list15:after{background: var(--color_15);}
+	.box_palette .btn_color.list16:after{background: var(--color_16);}
+	.box_palette .btn_color.list17:after{background: var(--color_17);}
+	.box_palette .btn_color.list18:after{background: var(--color_18);}
+	.box_palette .btn_color.list19:after{background: var(--color_19);}
+	.box_palette .btn_color.list20:after{background: var(--color_20);}
+	.box_palette .btn_color.list21:after{background: var(--color_21);}
+	.box_palette .btn_color.list22:after{background: var(--color_22);}
+	.box_palette .btn_color.list23:after{background: var(--color_23);}
+	.box_palette .btn_color.list24:after{background: var(--color_24);}
+	.box_palette .btn_color.list25:after{background: var(--color_25);}
+	.box_palette .btn_color.list26:after{background: var(--color_26);}
+	.box_palette .btn_color.list27:after{background: var(--color_27);}
+	
+	/* 미리보기 디자인 */
+	/* textEnd textEnd bold text-size-14dp  text-size-16dp  text-size-18dp  */
+	.template-openrich-textview.text-size-14dp .text{ font-size:14px}
+	.template-openrich-textview.text-size-16dp .text{ font-size:16px}
+	.template-openrich-textview.text-size-18dp .text{ font-size:18px}
+	.template-openrich-textview.bold .text{ font-weight: 800}
+	.template-openrich-textview.textStart .text{ text-align: left;}
+	.template-openrich-textview.textEnd .text{text-align: right;}
+	
+	/* custom.css 영향가는 부분 수정*/
+	.text_items { line-height: 1.7 !important}
+	.template-openrichcard-linearlayout>.template-openrichcard-linearlayout[data-id='pContent'] {max-height: 450px; overflow: auto}
+	.template-openrichcard-linearlayout-horizontal .template-openrich-textview {align-self:center}
+	.template-openrichcard-linearlayout-horizontal .template-openrich-textview .text {min-height:23px; white-space:pre-wrap;word-break:break-all} /* 값이 없더라도 크기 주기*/
+	input[type="checkbox"] + label, input[type="radio"] + label { position: relative;  vertical-align: middle;  -webkit-user-select: none;  -moz-user-select: none;  -ms-user-select: none;  user-select: none;  line-height: 1.7;padding: 0}
+	input[type="checkbox"] + label:before, input[type="radio"] + label:before{box-sizing: content-box;   content: '';   color: transparent;   position: absolute;   top: 0;   left: 0;   width: 14px;   height: 14px;   margin-top: 0;  border: 2px solid transparent;   text-align: center;}
+	input[type="checkbox"] + label:after, input[type="radio"] + label:after {
+		box-sizing: content-box;
+	    content: '';
+	    background-color: transparent;
+	    position: absolute;
+	    top: 50%;
+	    left: 4px;
+	    width: 10px;
+	    height: 10px;
+	    margin-top: 0;
+	    -webkit-transform: scale(0);
+	    transform: scale(0);
+	    -webkit-transform-origin: 50%;
+	    transform-origin: 50%;
+	    transition: none !important;
+	    -webkit-transition: none !important;
+	    -moz-transition: none !important;
+	    -ms-transition: none !important;
+	    -o-transition: none !important;
+	}
+	
+	input[type="checkbox"]:checked + label:after {transform : rotate(-45deg) scale(0);}
+	input[type="checkbox"]:focus + label:before, input[type="checkbox"]:hover + label:before, input[type="radio"]:focus + label:before, input[type="radio"]:hover + label:before{
+		border-color:transparent;
+	}
+	
+	.form-control:focus, .form-control:hover {color:#555}
+	
+    
