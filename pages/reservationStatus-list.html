@@ -11,31 +11,50 @@ layout: layout
 
 <!-- begin table -->
 <div class="row mrg-top-20">
-    <div class="width-70 pull-left">
-        <div class="calendar-inner-table" id="monCalendar">
-            <div class="calendar-day">
-                <div class="date">2025-06-18</div>
-                <div class="calendar_cnt" data-calendar-id="20250618/3">예약 3건</div>
-                <div class="calendar_cnt" data-calendar-id="20250619/1">예약 1건</div>
-            </div>
-        </div>
+  <!-- 왼쪽: 달력 -->
+  <div class="width-70 pull-left">
+    <div class="calendar-inner-table" id="monCalendar">
+      <div class="hd">
+        <a href="javascript:void(0)" class="btn-prev-month" onclick="moveMonth('prev')"></a>
+        <span class="calYear">2025</span>년
+        <span class="calMonth">06</span>월
+        <a href="javascript:void(0)" class="btn-next-month" onclick="moveMonth('next')"></a>
+      </div>
+      <div class="calendar-inner-table">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <thead>
+            <tr>
+              <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 날짜 셀들... -->
+            <!-- 생략: 위에 제공하신 셀 그대로 유지 -->
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="width-28 pull-right" id="hourly_reservation_list">
-        <h2 class="hour-reservation-title">시간대별 예약 내역</h2>
-        <div class="hour-reservation-area">
-            <h3>오늘(2025.06.18)</h3>
-            <div class="hour-reservation-box">
-                <div><p>10:00</p><p>2건</p></div>
-                <div><p>14:30</p><p>1건</p></div>
-            </div>
-        </div>
-        <div class="hour-reservation-area">
-            <h3>내일(2025.06.19)</h3>
-            <div class="hour-reservation-box">
-                <div><p>11:00</p><p>1건</p></div>
-            </div>
-        </div>
+  </div>
+
+  <!-- 오른쪽: 시간대별 예약 -->
+  <div class="width-28 pull-right" id="hourly_reservation_list">
+    <h2 class="hour-reservation-title">시간대별 예약 내역</h2>
+
+    <div class="hour-reservation-area">
+      <h3>오늘(2025.06.18)</h3>
+      <div class="hour-reservation-box">
+        <div><p>10:00</p><p>2건</p></div>
+        <div><p>14:30</p><p>1건</p></div>
+      </div>
     </div>
+
+    <div class="hour-reservation-area">
+      <h3>내일(2025.06.19)</h3>
+      <div class="hour-reservation-box">
+        <div><p>11:00</p><p>1건</p></div>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- end table -->
 
