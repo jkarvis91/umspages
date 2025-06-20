@@ -1,0 +1,54 @@
+<!-- previewDialog.html – 미리보기 팝업 (정적/Jekyll) -->
+<div class="popup_wrap" id="preview-modal" style="display:none;">
+  <!-- ▸ top -->
+  <div class="top">
+    <div class="title">미리보기 팝업</div>
+    <div class="btn_close">
+      <a href="#" id="btn_preview_close">
+        <img src="{{ '/static/images/btn_pop_close.png' | relative_url }}" alt="닫기" />
+      </a>
+    </div>
+  </div>
+  <!-- ▸ content -->
+  <div class="content_pop">
+    <div class="box_sms">
+      <!-- 제목 (MMS) -->
+      <div class="text_sms" id="msg-title-div">
+        <input class="sms" id="preview_title" type="text" readonly style="width:238px;padding:0 15px;"/>
+      </div>
+      <div class="content">
+        <div class="text_sms">
+          <textarea id="preview_msg" class="sms" readonly style="font-family:굴림;font-size:16px;width:217px;height:305px;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="mgt10 tac">*핸드폰 기기 종류에 따라 내용이 다르게 보일 수 있습니다.</div>
+  </div>
+  <!-- ▸ footer -->
+  <div class="footer_pop">
+    <a href="#" class="btn_big blue" id="btn_preview_ok">확인</a>
+  </div>
+</div>
+
+<!-- previewDialog 전용 스크립트 -->
+<script>
+(function(){
+  const $modal = $('#preview-modal');
+  // 열기 함수 (전역에서 호출)
+  window.showPreview = function(title,msg){
+    $('#preview_title').val(title);
+    $('#preview_msg').text(msg);
+    $modal.dialog({
+      modal:true,
+      width:450,
+      open:()=>{$modal.css('padding',0)},
+    });
+    $('.ui-dialog-titlebar').hide();
+  };
+  // 닫기 버튼
+  $('#btn_preview_close, #btn_preview_ok').on('click',e=>{
+    e.preventDefault();
+    $modal.dialog('close');
+  });
+})();
+</script>
