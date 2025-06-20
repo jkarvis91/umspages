@@ -1,0 +1,117 @@
+<!-- reserveDialog.html – 예약전송 팝업 (정적/Jekyll) -->
+<div class="popup_wrap" id="reserve-modal" style="display:none;">
+  <!-- top -->
+  <div class="top">
+    <div class="title">예약전송</div>
+    <div class="btn_close">
+      <a href="javascript:;" id="btn_reserve_close">
+        <img src="{{ '/static/images/btn_pop_close.png' | relative_url }}" alt="닫기"/>
+      </a>
+    </div>
+  </div>
+  <!-- /top -->
+
+  <!-- content -->
+  <div class="content_pop">
+    <!-- Search (날짜/시간 선택) -->
+    <div class="box_search01">
+      <ul>
+        <li>
+          <select class="small" name="year"></select><span class="text1">년</span>
+          <select class="small" name="month"></select><span class="text1">월</span>
+          <select class="small" name="date"></select><span class="text1">일</span>
+          <select class="small" name="hour"></select><span class="text1">시</span>
+          <select class="small" name="min"></select><span class="text1">분</span>
+        </li>
+      </ul>
+    </div>
+    <div class="mgt10">* 예약전송 가능시간은 07:30 ~ 20:50 까지입니다.</div>
+    <div class="mgt5">* 참좋은 음악회 관련해서만 22:59까지 예약해 주시기 바랍니다.</div>
+  </div>
+  <!-- /content -->
+
+  <!-- footer -->
+  <div class="footer_pop">
+    <a href="javascript:;" class="btn_big blue"  id="btn_reserve_ok">등록</a>
+    <a href="javascript:;" class="btn_big gray"  id="btn_reserve_cancel">취소</a>
+  </div>
+  <!-- /footer -->
+</div>
+<!-- /popup -->
+
+<script>
+// reserveDialog.js (인라인) — messageInitData · showAlert · UmsByteCheck 등 공통 util 필요
+$(function(){ initSetDate(); });
+
+const year  = $("select[name=year]");
+const month = $("select[name=month]");
+const date  = $("select[name=date]");
+const hour  = $("select[name=hour]");
+const min   = $("select[name=min]");
+
+function showReserve(){
+  initSetDate();
+
+  $("#btn_reserve_close, #btn_reserve_cancel").off().on("click",()=>
+    $("#reserve-modal").dialog("close"));
+
+  $("#btn_reserve_ok").off().on("click",()=>{
+    $("#reserve-modal").dialog("close");
+    setReserveDate();
+  });
+
+  $("#reserve-modal").dialog({
+    modal:true,
+    width:530,
+    open(){ $(this).css("padding",0); },
+  });
+  $(".ui-dialog-titlebar").hide();
+}
+
+// ▶ 날짜 select 초기화 (현재일시 기준)
+function initSetDate(){
+  const now = new Date();
+  year .html(messageInitData.getYearOptionHtml(5,0));
+  month.html(messageInitData.getMonthOptionHtml());
+  date .html(messageInitData.getDayOptionHtml(now.getFullYear(),now.getMonth()+1));
+  hour .html(messageInitData.getHourOptionHtml());
+  min  .html(messageInitData.getMinOptionHtml());
+
+  year .val(now.getFullYear());
+  month.val(String(now.getMonth()+1).padStart(2,'0'));
+  date .val(String(now.getDate()).padStart(2,'0'));
+  hour .val(String(now.getHours()).padStart(2,'0'));
+  min  .val(String(now.getMinutes()).padStart(2,'0'));
+
+  year.add(month).change(changeLastDay);
+}
+
+function changeLastDay(){
+  const lastDay = new Date(year.val(), month.val(), 0).getDate();
+  const curDate = date.val();
+  date.empty().html(messageInitData.getDayOptionHtml(year.val(), month.val()));
+  date.val(curDate > lastDay ? '01' : curDate);
+}
+
+function setReserveDate(){
+  const y=year.val(), m=month.val(), d=date.val(), h=hour.val(), mm=min.val();
+  const reservedTime = `${y}년 ${m}월 ${d}일 ${h}시 ${mm}분`;
+  const compact = y + m.padStart(2,'0') + d.padStart(2,'0') + h.padStart(2,'0') + mm.padStart(2,'0');
+
+  const t = parseInt(compact.slice(-4));
+  if(t < 730 || t > 2259){
+    showAlert('예약발송 가능 시간을 확인해 주세요.');
+    return;
+  }
+  const now = new Date();
+  const nowKey = now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0');
+  if(compact < nowKey){
+    showAlert('현재시간보다 이전으로 예약할 수 없습니다.');
+    return;
+  }
+  showAlert(`${reservedTime}에 예약설정 되었습니다.`, function(){
+    $("#reserveDate").val(compact);
+    $("#btn_send").trigger("click");
+  });
+}
+</script>
