@@ -1,0 +1,131 @@
+<!-- addAddressDialog.html – 주소록에 등록하기 팝업 (정적/Jekyll) -->
+<div class="popup_wrap" id="address-modal" style="display:none;">
+  <!-- top -->
+  <div class="top">
+    <div class="title">주소록에 등록하기</div>
+    <div class="btn_close">
+      <a href="javascript:;" id="btn_addaddress_close">
+        <img src="{{ '/static/images/btn_pop_close.png' | relative_url }}" alt="닫기"/>
+      </a>
+    </div>
+  </div>
+  <!-- /top -->
+
+  <!-- content -->
+  <div class="content_pop">
+    <!-- 탭 -->
+    <div class="wrap_tab mgt14">
+      <ul class="tabs big" data-persist="true">
+        <li class="selected"><a href="#address_view_tab1" id="addExistGroup" class="big">기존 그룹에 등록</a></li>
+        <li><a href="#address_view_tab2" id="addNewGroup" class="big" style="margin-left:-2px;">새 그룹에 등록</a></li>
+      </ul>
+      <div class="tabcontents big popup01">
+        <!-- 기존 그룹 -->
+        <div id="address_view_tab1">
+          <div class="tbl_wrap_view mgt15">
+            <table class="tbl_view01">
+              <colgroup><col style="width:140px"/><col/></colgroup>
+              <tr>
+                <th scope="row">그룹선택</th>
+                <td>
+                  <select id="select_groupList" style="width:300px">
+                    <option value="">추가할 그룹을 선택하세요</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- 새 그룹 -->
+        <div id="address_view_tab2">
+          <div class="tbl_wrap_view mgt15">
+            <table class="tbl_view01">
+              <colgroup><col style="width:140px"/><col/></colgroup>
+              <tr>
+                <th scope="row">공유여부</th>
+                <td>
+                  <div class="radio_default"><input type="radio" id="radio1" name="shareyn" value="0" checked/><label for="radio1">공유안함</label></div>
+                  <div class="radio_default"><input type="radio" id="radio2" name="shareyn" value="1"/><label for="radio2">공유</label></div>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">그룹명</th>
+                <td><input type="text" id="groupname" placeholder="그룹명 입력" style="width:280px" maxlength="64"/></td>
+              </tr>
+              <tr>
+                <th scope="row">그룹설명</th>
+                <td><input type="text" id="groupnote" placeholder="그룹설명 입력" style="width:280px" maxlength="64"/></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /content -->
+
+  <!-- footer -->
+  <div class="footer_pop">
+    <a href="javascript:;" class="btn_big blue"  id="btn_addAddr_save">등록</a>
+    <a href="javascript:;" class="btn_big gray"  id="btn_addAddr_cancel">취소</a>
+  </div>
+</div>
+
+<!-- ▸ Page‑specific JS -->
+<script>
+let contactList = '';
+const existTab   = '#address_view_tab1';
+const newTab     = '#address_view_tab2';
+
+function showAddAddress(list){
+  contactList = list;          // 등록 대상 문자열 "이름:번호,…"
+  initUI();
+
+  $('#address-modal').dialog({modal:true,width:550,open(){$(this).css('padding','0')}});
+  $('.ui-dialog-titlebar').hide();
+
+  // close / cancel
+  $('#btn_addaddress_close, #btn_addAddr_cancel').off().on('click',()=>$('#address-modal').dialog('close'));
+
+  // save
+  $('#btn_addAddr_save').off().on('click',saveAddress);
+}
+
+/* ---------------- helpers ---------------- */
+function initUI(){
+  $('#groupname,#groupnote').val('');
+  loadGroupList();
+}
+
+function loadGroupList(){
+  // DEMO: 목업 JSON 로드 → 옵션 채워 넣기
+  fetch('{{ '/mock/groupList.json' | relative_url }}')
+    .then(r=>r.json())
+    .then(lst=>{
+      const opts = lst.map(g=>`<option value="${g.grpSeq}">${g.groupName}</option>`).join('');
+      $('#select_groupList').html(`<option value="">추가할 그룹을 선택하세요</option>`+opts);
+    });
+}
+
+function saveAddress(){
+  const activeTab = $('.tabs li.selected a').attr('id');
+  if(activeTab==='addExistGroup'){
+    const grpSeq = $('#select_groupList').val();
+    if(!grpSeq){return showAlert('그룹을 선택하세요');}
+    /* DEMO‑ONLY: 실제 호출 주석
+    $.post(API_BASE+'/address/addExist', {grpSeq, contactList})
+      .done(()=>showAlert('등록 완료'));
+    */
+    console.log('[DEMO] add to exist group', grpSeq, contactList);
+    showAlert('등록 완료(데모)');
+  }else{
+    const name = $('#groupname').val().trim();
+    const note = $('#groupnote').val().trim();
+    if(!name){return showAlert('그룹명을 입력하세요');}
+    const shareYN = $('input[name=shareyn]:checked').val();
+    console.log('[DEMO] new group', {name,note,shareYN,contactList});
+    showAlert('신규 그룹 등록 완료(데모)');
+  }
+  $('#address-modal').dialog('close');
+}
+</script>
