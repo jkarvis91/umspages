@@ -10,7 +10,13 @@
           <span>문자보내기</span>
         </a>
         <ul class="sub-menu">
-          <li><a href="/message.html" id="message_link">일반보내기</a></li>
+          <li>
+            <a href="{{ '/pages/send-general.html' | relative_url }}"
+              data-menu-id="message_link"
+              data-menu-link="{{ '/pages/send-general.html' | relative_url }}">
+             일반보내기
+            </a>
+          </li>
           <li><a href="/filesend.html" id="filesend_link">파일대량보내기</a></li>
           <li><a href="/eventsend.html" id="eventmessage_link">경조사보내기</a></li>
           <li><a href="/emplsms/emplsend.html" id="emplsend_link">직원용 SMS 발송</a></li>
