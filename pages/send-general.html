@@ -1,0 +1,65 @@
+---
+layout: layout
+---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>일반보내기 – Message Center</title>
+
+  <!-- favicon & base style -->
+  <link rel="shortcut icon" href="{{ '/static/images/favicon.ico' | relative_url }}"/>
+  <link rel="stylesheet" href="{{ '/static/v2/css/common.css' | relative_url }}"/>
+
+  <!-- page‑local placeholder 스타일 (제목 input placeholder 색) -->
+  <style>
+    input#messageTitle::placeholder       {color:red;font-size:13px}
+    input#messageTitle::-webkit-input-placeholder{color:red;font-size:13px}
+    input#messageTitle::-moz-placeholder   {color:red;font-size:13px}
+    input#messageTitle:-ms-input-placeholder{color:red;font-size:13px}
+  </style>
+</head>
+<body>
+
+<h3 id="page-title">일반보내기</h3>
+
+<div id="content">
+  <!-- 알림 상자 -->
+  <div class="box_info">
+    <div class="title">「비대면 은행영업 가이드라인」에 의해 마케팅 목적의 문자발송이 불가합니다.</div>
+    <div class="text1 mgt3">메시지센터는 기존계약의 유지관리(여·수신 만기안내 등)를 목적으로 발송이 가능하며
+      <strong style="color:red">고객관리(생일축하, 감성메시지 등)는 CRM시스템을 이용해 주시기 바랍니다. <span>(단, 마케팅 목적의 문자는 발송불가)</span></strong>
+    </div>
+    <div class="text2 mgt3">정보통신망법 이용촉진 및 정보보호 등에 관한 법률에 따라 "영리목적 광고성 정보" 수신 거부 고객에 대한 마케팅은 3천만원 이하의 과태료 부과 대상입니다. (관련문서 : 상품 안내장 전송(FAX, E‑MAIL 등) 관련 유의사항 통보, 정보보호센터 2013.7.25)</div>
+  </div>
+
+
+</div><!-- /#content -->
+{% include /messageDialog.html %}
+{% include /loading.html %}
+{% include /previewDialog.html %}
+{% include /specharDialog.html %}
+{% include /saveMsgDialog.html %}
+{% include /reserveDialog.html %}
+{% include /addAddressDialog.html %}
+{% include /fileUploadDialog.html %}
+
+<script src="{{ '/static/js/tabcontent.js' | relative_url }}"></script>
+<script src="{{ '/static/js/messageUtil.js' | relative_url }}"></script>
+<!-- 백엔드 종속 스크립트 (ajax) – 데모용으로 주석 처리 -->
+<!-- <script src="{{ '/static/js/jquery.fileupload.js' | relative_url }}"></script> -->
+<script src="{{ '/static/js/UmsValidation.js' | relative_url }}"></script>
+<script src="{{ '/static/js/UmsInitData.js' | relative_url }}"></script>
+<script src="{{ '/static/js/UmsDatepicker.js' | relative_url }}"></script>
+<script src="{{ '/static/js/UmsZoomInOut.js' | relative_url }}"></script>
+<script src="{{ '/static/js/UmsDatatables.js' | relative_url }}"></script>
+<script src="{{ '/static/js/sms-req/UmsByteCheck.js' | relative_url }}"></script>
+<script src="{{ '/static/js/datatable-column/notice-column.js' | relative_url }}"></script>
+
+<script>
+const emplId = 'DUMMY'; // ← <%= session.getAttribute("EMPL_ID") %> 대체
+
+</script>
+</body>
+</html>
