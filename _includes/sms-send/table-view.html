@@ -1,0 +1,61 @@
+<!-- table-view.html – 발송종류 · 품질보증제 조건 테이블 (정적/Jekyll) -->
+<div class="tbl_wrap_view mgt5">
+  <table class="tbl_view01" summary="검색조건 테이블">
+    <caption>검색조건</caption>
+    <colgroup>
+      <col style="width:180px" />
+      <col style="width:auto" />
+    </colgroup>
+
+    <!-- 발송종류 선택 -->
+    <tr>
+      <th scope="row">발송종류 선택</th>
+      <td>
+        <div class="row1">
+          <div class="radio_default">
+            <input type="radio" id="cusType_0" name="cusType" value="0"/>
+            <label for="cusType_0">기존계약 유지관리</label>
+          </div>
+          <div class="radio_default">
+            <input type="radio" id="cusType_1" name="cusType" value="1"/>
+            <label for="cusType_1">마케팅 및 고객관리</label>
+          </div>
+        </div>
+        <div class="row1 mgb3">
+          <span>· 기존계약 유지관리</span> : 여·수신 만기 안내 등 고객이 안내받지 못하면 불이익이 있는 경우 선택
+        </div>
+        <div class="row1">
+          <span>· 마케팅 및 고객관리</span> : 상품/서비스 권유, 생일 축하메시지, 감성메시지 등 (문자 발송 불가)
+        </div>
+      </td>
+    </tr>
+
+    <!-- 품질보증제 신청 여부 -->
+    <tr>
+      <th scope="row">품질보증제 신청여부
+        <span class="tooltip" style="margin-left:4px;cursor:pointer;">
+          <img class="tooltipImg" src="{{ '/static/images/icon_help_on.png' | relative_url }}" alt="도움말"/>
+        </span>
+      </th>
+      <td>
+        <div class="row1">
+          <div class="radio_default">
+            <input type="radio" id="radio3" name="userAd" value="1"/>
+            <label for="radio3">신청고객</label>
+          </div>
+          <div class="radio_default">
+            <input type="radio" id="radio4" name="userAd" value="0" checked/>
+            <label for="radio4">미신청고객</label>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Tooltip 텍스트 (position JS 로 제어) -->
+<span class="tooltiptext" style="visibility:hidden;">
+  * 관련문서: 「서비스 품질보증제」 시행 (고객행복부 2010.05.25)<br/>
+  - '신청고객' 선택 시 SMS 수신거부여도 발송됨<br/>
+  - '미신청고객' 선택 시 SMS 수신거부면 발송안됨
+</span>
