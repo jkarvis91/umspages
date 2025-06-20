@@ -1,0 +1,100 @@
+<!-- fileUploadDialog.html – 파일선택 팝업 (정적/Jekyll) -->
+<div class="popup_wrap" id="file-modal" style="display:none;">
+  <!-- top -->
+  <div class="top">
+    <div class="title">파일선택</div>
+    <div class="btn_close">
+      <a href="javascript:;" id="btn_file_close">
+        <img src="{{ '/static/images/btn_pop_close.png' | relative_url }}" alt="닫기"/>
+      </a>
+    </div>
+  </div>
+  <!-- /top -->
+
+  <!-- content -->
+  <div class="content_pop">
+    <div class="tar mgb10">
+      <a href="{{ '/message/download/sample/message' | relative_url }}" class="btn_default">샘플 다운받기</a>
+    </div>
+
+    <!-- file choose line -->
+    <div class="box_search01 small">
+      <ul>
+        <li>
+          <span class="mgl5"><input id="file-name-input" type="text" placeholder="파일 업로드" style="width:330px" readonly/></span>
+          <!-- 실제 input[type=file] 은 숨겨 두고 버튼으로 트리거 -->
+          <input id="fileupload" type="file" accept=".xls,.xlsx,.csv" style="display:none"/>
+          <a href="javascript:" id="fileupload-btn" class="btn_default gray mgl6 vam00">찾아보기</a>
+        </li>
+      </ul>
+    </div>
+    <div class="mgt10">* 확장자 xls , xlsx 또는 csv 파일만 가능합니다.</div>
+  </div>
+  <!-- /content -->
+
+  <!-- footer -->
+  <div class="footer_pop">
+    <a href="javascript:;" id="btn_file_ok"     class="btn_big blue">등록</a>
+    <a href="javascript:;" id="btn_file_cancel" class="btn_big gray">취소</a>
+  </div>
+</div>
+<!-- /popup -->
+
+<script>
+(function(){
+  let fileList = null;
+
+  // 팝업 열기 함수 (외부에서 호출)
+  window.showFileUpload = function(){
+    resetUI();
+
+    // 닫기 & 취소
+    $('#btn_file_close, #btn_file_cancel').off().on('click', ()=>$('#file-modal').dialog('close'));
+
+    // 등록 버튼
+    $('#btn_file_ok').off().on('click', ()=>{
+      if(!fileList){
+        showAlert('파일이 등록되지 않았습니다.');
+        return;
+      }
+      $('.dimm').show();
+      setTimeout(()=>{
+        // DEMO: fileList 를 바로 addTargetList 로 넘김
+        addTargetList(fileList, 'file');
+        $('.dimm').hide();
+        $('#file-modal').dialog('close');
+      },10);
+    });
+
+    // 찾아보기 버튼 → 숨은 input[type=file] 클릭
+    $('#fileupload-btn').off().on('click', ()=>$('#fileupload').trigger('click'));
+
+    // 파일 선택 핸들러 (HTML5 File API 사용)
+    $('#fileupload').off().on('change', function(){
+      const file = this.files[0];
+      if(!file) return;
+      const ext = file.name.split('.').pop().toLowerCase();
+      if(!['xls','xlsx','csv'].includes(ext)){
+        showAlert('xls / xlsx / csv 파일만 지원합니다.');
+        $(this).val('');
+        fileList=null;
+        return;
+      }
+      $('#file-name-input').val(file.name);
+
+      /* DEMO‑ONLY: 백엔드 업로드는 생략, 프론트에서 바로 File 객체 보관 */
+      fileList = [{name:file.name,mobile:''}]; // 실제 구현에서는 서버 응답(JSON) 리스트로 교체
+    });
+
+    // jQuery‑UI dialog
+    $('#file-modal').dialog({modal:true,width:530,open(){ $(this).css('padding',0) }});
+    $('.ui-dialog-titlebar').hide();
+  };
+
+  function resetUI(){
+    $('#file-name-input').val('');
+    $('#fileupload').val('');
+    fileList=null;
+  }
+})();
+</script>
