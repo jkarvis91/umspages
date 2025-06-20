@@ -1,0 +1,75 @@
+<!-- specharDialog.html – 특수문자 팝업 (정적/Jekyll) -->
+<div class="popup_wrap_b" id="spechar-modal" style="display:none;">
+  <!-- top -->
+  <div class="top">
+    <div class="title">특수문자</div>
+    <div class="btn_close">
+      <a href="#" id="btn_spechar_close">
+        <img src="{{ '/static/images/btn_pop_close.png' | relative_url }}" alt="닫기"/>
+      </a>
+    </div>
+  </div>
+  <!-- /top -->
+
+  <!-- content -->
+  <div class="content_pop">
+    <!-- ===== 특수문자 표 1 ===== -->
+    <div class="tbl_wrap_list_scode">
+      <table class="tbl_list" summary="특수문자 테이블 1">
+        <colgroup>
+          {% for _ in (1..13) %}<col style="width:20px"/>{% endfor %}
+        </colgroup>
+        <tbody>
+          <tr><td><a href="javascript:;">♥</a></td><td><a href="javascript:;">♡</a></td><td><a href="javascript:;">＃</a></td><td><a href="javascript:;">＆</a></td><td><a href="javascript:;">＊</a></td><td><a href="javascript:;">＠</a></td><td><a href="javascript:;">§</a></td><td><a href="javascript:;">※</a></td><td><a href="javascript:;">☆</a></td><td><a href="javascript:;">★</a></td><td><a href="javascript:;">○</a></td><td><a href="javascript:;">●</a></td><td><a href="javascript:;">◎</a></td></tr>
+          <tr><td><a href="javascript:;">◇</a></td><td><a href="javascript:;">◆</a></td><td><a href="javascript:;">□</a></td><td><a href="javascript:;">■</a></td><td><a href="javascript:;">△</a></td><td><a href="javascript:;">▲</a></td><td><a href="javascript:;">▽</a></td><td><a href="javascript:;">▼</a></td><td><a href="javascript:;">→</a></td><td><a href="javascript:;">←</a></td><td><a href="javascript:;">↑</a></td><td><a href="javascript:;">↓</a></td><td><a href="javascript:;">↔</a></td></tr>
+          <tr><td><a href="javascript:;">〓</a></td><td><a href="javascript:;">♡</a></td><td><a href="javascript:;">◁</a></td><td><a href="javascript:;">◀</a></td><td><a href="javascript:;">▷</a></td><td><a href="javascript:;">⊙</a></td><td><a href="javascript:;">◎</a></td><td><a href="javascript:;">◈</a></td><td><a href="javascript:;">♬</a></td><td><a href="javascript:;">℡</a></td><td><a href="javascript:;">$</a></td><td><a href="javascript:;">‘</a></td><td><a href="javascript:;">\</a></td></tr>
+          <tr><td><a href="javascript:;">＂</a></td><td><a href="javascript:;">^</a></td><td><a href="javascript:;">♂</a></td><td><a href="javascript:;">♪</a></td><td><a href="javascript:;">☎</a></td><td><a href="javascript:;">☞</a></td><td><a href="javascript:;">☜</a></td><td><a href="javascript:;">♣</a></td><td><a href="javascript:;">♧</a></td><td><a href="javascript:;">◑</a></td><td><a href="javascript:;">◐</a></td><td><a href="javascript:;">♠</a></td><td><a href="javascript:;">♤</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== 특수문자 표 2 (이모티콘) ===== -->
+    <div class="tbl_wrap_list_scode mgt20">
+      <table class="tbl_list" summary="특수문자 테이블 2">
+        <colgroup>{% for _ in (1..9) %}<col style="width:50px"/>{% endfor %}</colgroup>
+        <tbody>
+          <tr><td><a href="javascript:;">^.^</a></td><td><a href="javascript:;">*^^*</a></td><td><a href="javascript:;">^.~</a></td><td><a href="javascript:;">^^;;</a></td><td><a href="javascript:;">^v^</a></td><td><a href="javascript:;">^ㅍ^</a></td><td><a href="javascript:;">(^^)/</a></td><td><a href="javascript:;">^o^</a></td><td><a href="javascript:;">~♬</a></td></tr>
+          <tr><td><a href="javascript:;">☜☞</a></td><td><a href="javascript:;">-_-ㆀ</a></td><td><a href="javascript:;">-_-+</a></td><td><a href="javascript:;">-_-;</a></td><td><a href="javascript:;">-_-ㆀ</a></td><td><a href="javascript:;">ㅡㅡ;</a></td><td><a href="javascript:;">0 .o</a></td><td><a href="javascript:;">0(^^)V</a></td><td><a href="javascript:;">l -,.- l</a></td></tr>
+          <tr><td><a href="javascript:;">(@_@)</a></td><td><a href="javascript:;">ご,.ご</a></td><td><a href="javascript:;">=◑.◐=</a></td><td><a href="javascript:;">(θ_θ)</a></td><td><a href="javascript:;">(づ_ど)</a></td><td><a href="javascript:;">♡.♡</a></td><td><a href="javascript:;">q⊙.⊙p</a></td><td><a href="javascript:;">q^.^p</a></td><td>&nbsp;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- /content -->
+</div>
+
+<!-- ===== 스크립트 ===== -->
+<script>
+  let specharStart = 0, specharEnd = 0;
+
+  function showSpechar() {
+    specharStart = $("#message").prop("selectionStart");
+    specharEnd   = $("#message").prop("selectionEnd");
+
+    $('#btn_spechar_close').off('click').on('click', () => {
+      $('#spechar-modal').dialog('close');
+      return false;
+    });
+
+    // 문자 클릭
+    $('#spechar-modal a').off('click').on('click', function () {
+      const char = $(this).text();
+      messageByteCheck(char);            // 외부 util 함수 그대로 사용
+      specharStart += char.length;
+      specharEnd   += char.length;
+    });
+
+    $('#spechar-modal').dialog({
+      modal: true,
+      width: 480,
+      position: { my: 'left top', at: 'right top', of: '#message' },
+      open   : function(){ $(this).css('padding',0); },
+    });
+    $('.ui-dialog-titlebar').hide();
+  }
+</script>
