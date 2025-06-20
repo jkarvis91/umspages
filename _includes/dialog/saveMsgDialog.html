@@ -1,0 +1,89 @@
+<!-- saveMsgDialog.html – 메시지 저장 팝업 (정적/Jekyll) -->
+<div class="popup_wrap" id="saveMsg-modal" style="display:none;">
+  <!-- top -->
+  <div class="top">
+    <div class="title">메시지 저장</div>
+    <div class="btn_close">
+      <a href="#" id="btn_saveMsg_close">
+        <img src="{{ '/static/images/btn_pop_close.png' | relative_url }}" alt="닫기"/>
+      </a>
+    </div>
+  </div>
+  <!-- /top -->
+
+  <!-- content -->
+  <div class="content_pop">
+    <!-- Search -->
+    <div class="box_search01 small">
+      <ul>
+        <li>
+          <span class="fwb">메시지 제목 :</span>
+          <span class="mgl5"><input type="text" id="pop_saveMsg_title" style="width:110px"/></span>
+          <span>
+            <select id="pop_saveMsg_SelectBox">
+              <option value="personal">개인저장 메시지함</option>
+              <option value="dept">부서저장 메시지함</option>
+            </select>
+          </span>
+          <span class="fwb">으로 저장</span>
+        </li>
+      </ul>
+    </div>
+    <div class="mgt10">* 90byte 이상시 MMS메시지로 저장됩니다.</div>
+  </div>
+  <!-- /content -->
+
+  <!-- footer -->
+  <div class="footer_pop">
+    <a href="#" class="btn_big blue"  id="btn_saveMsg_save">등록</a>
+    <a href="#" class="btn_big gray"  id="btn_saveMsg_cancel">취소</a>
+  </div>
+  <!-- /footer -->
+</div>
+
+<script>
+// ===================== saveMsg 팝업 로직 =====================
+function showSaveMsg(msg){
+  $("#pop_saveMsg_SelectBox").val('personal');
+  const initTitle = $("#messageTitle").val().substring(0,50);
+  $("#pop_saveMsg_title").val(initTitle);
+
+  // 닫기
+  $("#btn_saveMsg_close, #btn_saveMsg_cancel").off().on('click',function(e){
+    e.preventDefault();
+    $("#saveMsg-modal").dialog("close");
+  });
+
+  // 저장
+  $("#btn_saveMsg_save").off().on('click',function(e){
+    e.preventDefault();
+    const saveMsg_code  = $("#pop_saveMsg_SelectBox").val();
+    const saveMsg_title = $("#pop_saveMsg_title").val().trim();
+    if(!saveMsg_title){
+      showAlert('메시지 제목을 입력해주세요!');
+      return;
+    }
+    $("#saveMsg-modal").dialog("close");
+    // DEMO: 실제 저장 대신 콘솔 출력
+    console.log('[DEMO] saveMsg', {saveMsg_code, saveMsg_title, msg});
+    swal('데모', '"'+saveMsg_title+'" 로 저장(가정)되었습니다.', 'success');
+  });
+
+  // 제목 byte 제한 검사
+  function titleValidate(){
+    const saveType = $("#pop_saveMsg_SelectBox").val();
+    const maxByte  = saveType==='personal' ? 50 : 40;
+    const info     = UmsByteCheck.getBytesAndMaxLength($("#pop_saveMsg_title").val(), maxByte);
+    if(info.totalByte>maxByte){
+      showAlert('제목은 '+maxByte+'byte 까지 입력 가능합니다.');
+      $("#pop_saveMsg_title").val($("#pop_saveMsg_title").val().substring(0,info.ableLength));
+    }
+  }
+  $("#pop_saveMsg_SelectBox").off().on('change', titleValidate);
+  $(document).off('keyup', '#pop_saveMsg_title').on('keyup','#pop_saveMsg_title', titleValidate);
+
+  // jQuery‑UI dialog
+  $("#saveMsg-modal").dialog({modal:true,width:550,open:function(){$(this).css('padding','0');}});
+  $(".ui-dialog-titlebar").hide();
+}
+</script>
