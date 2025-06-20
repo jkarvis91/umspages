@@ -1,7 +1,7 @@
 $(function(){
 	
 	// menu_id 미존재시, 방어로직 추가
-	var url = document.location.href.replace(/^https?:\/\/[^/]+, '');
+	var url = document.location.href.replace(/^https?:\/\/[^/]+/, '');
 	var href = $('.sidebar ul.left-menu li a').attr("href");
 	$('.sidebar ul.left-menu li a').each(function(idx, item) {
 		var href = $(item).attr("href");
