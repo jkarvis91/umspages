@@ -1,0 +1,40 @@
+<!-- wrap_box_ms.html – 메시지 미리보기(템플릿) 탭 & 페이징 -->
+<div class="wrap_box_ms mgt10" id="sms-preview-box">
+  <!-- ===== Tab Header ===== -->
+  <div class="wrap_tab">
+    <div class="tapPreView">
+      <ul class="tabs big" data-persist="true">
+        <li class="selected"><a href="#view_tab1" class="big">해피콜문자</a></li>
+        <li><a href="#view_tab1" class="big" style="margin-left:-2px;">본부양식</a></li>
+        <li><a href="#view_tab1" class="big" style="margin-left:-2px;">개인메시지함</a></li>
+        <li><a href="#view_tab1" class="big" style="margin-left:-2px;">부서메시지함</a></li>
+        <span class="btn"><a href="{{ '/form/happy.html' | relative_url }}"><img src="{{ '/static/images/btn_more.png' | relative_url }}" alt="더 보기"/></a></span>
+      </ul>
+    </div>
+
+    <!-- ===== Tab Contents ===== -->
+    <div class="tabcontents big">
+      <!-- ▼ 탭 패널 (ID: view_tab1) -->
+      <div id="view_tab1">
+        <!-- 하위 서브메뉴 (해피콜문자 전용) -->
+        <div id="div_MsgFormSubMenu">
+          <ul class="menu">
+            <li><a href="javascript:;" class="on">신규</a></li>
+            <li><a href="javascript:;">해피콜</a></li>
+            <li><a href="javascript:;">스마트뱅킹</a></li>
+          </ul>
+        </div>
+
+        <!-- 미리보기 카드 리스트 -->
+        <div id="div_MsgFormDataView">
+          <!-- JS가 동적으로 UL>LI 리스트 주입 -->
+        </div>
+
+        <div class="line_sms mgt6"></div>
+        <!-- ===== 페이징 ===== -->
+        <div class="paging"></div>
+      </div>
+      <!-- ▲ 탭 패널 end -->
+    </div>
+  </div>
+</div>
