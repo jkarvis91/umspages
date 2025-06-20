@@ -21,6 +21,14 @@ layout: layout
   <link rel="stylesheet" href="{{ '/static/v2/css/jquery.toast.min.css' | relative_url }}"/>
   <link rel="stylesheet" href="{{ '/static/v2/css/slick.css' | relative_url }}"/>
 
+  <!-- legacy CSS 묶음 -->
+  <link rel="stylesheet" href="{{ '/static/css/jquery-ui.min.css'      | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/datatables.min.css'     | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/default.css'            | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/login.css'              | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/table.css'              | relative_url }}">
+  <link rel="stylesheet" href="{{ '/static/css/summernote-lite.css'    | relative_url }}">
+
   <!-- placeholder 빨간색 -->
   <style>
   input#messageTitle::placeholder           {color:red;font-size:13px}
@@ -45,6 +53,20 @@ layout: layout
   <script src="{{ '/static/v2/js/vfs_fonts.js'            | relative_url }}"></script>
   <!-- custom util → 백엔드 호출부 주석 처리 -->
   <script src="{{ '/static/v2/js/common.js' | relative_url }}"></script>
+
+    <!-- vendor JS (jQuery 먼저) -->
+  <script src="{{ '/static/js/jquery.3.3.1.js'        | relative_url }}"></script>
+  <script src="{{ '/static/js/jquery-ui.min.js'        | relative_url }}"></script>
+  <script src="{{ '/static/js/moments.js'              | relative_url }}"></script>
+  <script src="{{ '/static/js/jquery.number.js'        | relative_url }}"></script>
+  <script src="{{ '/static/js/jquery.bpopup-min.js'    | relative_url }}"></script>
+  <script src="{{ '/static/js/article-hide.js'         | relative_url }}"></script>
+  <script src="{{ '/static/js/common/sha256.js'        | relative_url }}"></script>
+  <!-- zoom -->
+  <script src="{{ '/static/js/common/zoom.js'          | relative_url }}"></script>
+
+  <!-- datatables & buttons -->
+  <script src="{{ '/static/js/datatables.min.js'           | relative_url }}"></script>
 
 </head>
 <body>
@@ -113,6 +135,8 @@ function reloadAddressViewData(){
     .then(r=>r.json())
     .then(setAddressList);
 }
+/* Ajax 캐시 방지 */
+jQuery.ajaxSetup({cache:false});  
 </script>
 </body>
 </html>
