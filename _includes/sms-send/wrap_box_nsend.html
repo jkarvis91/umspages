@@ -1,0 +1,152 @@
+<!-- wrap_box_nsend.html – 발신번호·수신번호·주소록 3‑칼럼 레이아웃 -->
+<div class="wrap_box_nsend mgt10">
+  <!-- ===== col1 : 휴대폰(SMS 편집) ===== -->
+  <div class="col1" id="sms-mobile">
+    <div class="box_nsend">
+      <!-- 제목 (MMS 전용) -->
+      <div class="top">
+        <input class="nsend" id="messageTitle" type="text" placeholder="제목을 입력해주세요.(40byte)" style="width:200px;font-size:13px;display:none"/>
+      </div>
+
+      <!-- 메시지 입력 textarea -->
+      <div class="content">
+        <div class="text_sms">
+          <textarea id="message" class="sms" title="메시지 입력" style="font-family:'굴림';font-size:16px;width:100%;height:240px;padding-right:5px;"></textarea>
+          <!-- 처음 진입 시 안내 문구 -->
+          <span class="main-msg" style="position:absolute;left:12px;top:0;font-size:11px">
+            <center><b style="color:red">[문자 발송 시 유의사항]</b></center><br/>
+            <b style="color:red">『비대면 은행영업 가이드라인』에 의해 <br/>마케팅 목적의 문자발송이 불가합니다.</b><br/><br/>
+            마케팅 문자는 반드시 CRM을 이용하여 주시기 바랍니다.<br/><br/>
+            - 기존계약 유지관리 : 발송가능<br/>
+            <b>- 마케팅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 발송불가</b><br/>
+            <b>- 고객관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 발송불가</b>
+          </span>
+        </div>
+        <div class="byte">0 byte <span>SMS</span></div>
+        <div class="tac mgt19">
+          <a href="javascript:;" class="btn_msave_blue" id="btnMessageSave">메시지저장</a>
+          <a href="javascript:;" class="btn_refresh_blue mgl6" id="btnMessageClear">새로쓰기</a>
+          <a href="javascript:;" class="btn_scode_blue mgl6" id="specharPreview">특수문자</a>
+        </div>
+      </div>
+
+      <!-- 발신번호 -->
+      <div class="snum">발신번호 <input type="text" id="sender" placeholder="입력하세요"/></div>
+
+      <!-- 전송 버튼 -->
+      <div class="mgt15">
+        <a href="javascript:;"  id="popupPreview"><img src="{{ '/static/images/btn_preview.png' | relative_url }}"  alt="미리보기"/></a>
+        <a href="javascript:;" class="mgl5" id="btn_reserve_send"><img src="{{ '/static/images/btn_rsend.png'   | relative_url }}"  alt="예약전송"/></a>
+        <a href="javascript:;" class="mgl5" id="btn_send"><img src="{{ '/static/images/btn_send.png'    | relative_url }}"  alt="보내기"/></a>
+      </div>
+      <input type="hidden" id="reserveDate"/>
+    </div>
+  </div><!-- /col1 -->
+
+  <!-- ===== col2 : 수신번호 목록 ===== -->
+  <div class="col2" id="sms-receiver">
+    <div class="title">수신번호 (총 <span>0</span>개)</div>
+    <div class="mgt15">
+      <input class="small" id="receiverNum" type="text" placeholder="" style="width:90px;"/>
+      <a href="javascript:;" class="btn_default small mgl7"  id="btn-add">추가</a>
+      <a href="javascript:;" class="btn_default small"        id="btn-fileUpload">불러오기</a>
+    </div>
+
+    <!-- 헤더 테이블 -->
+    <div class="tbl_wrap_list_small mgt10" style="width:218px">
+      <table class="tbl_list">
+        <colgroup><col style="width:100px"/><col/></colgroup>
+        <thead>
+          <tr>
+            <th scope="col">
+              <div class="checkbox_default">
+                <input type="checkbox" id="select-all"/>
+                <label for="select-all">이름</label>
+              </div>
+            </th>
+            <th scope="col">휴대폰번호</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <!-- 수신번호 리스트 -->
+    <div class="tbl_wrap_list_small border_t0" style="width:218px;height:410px;overflow-y:scroll;">
+      <table class="tbl_list">
+        <colgroup><col style="width:95px"/><col/></colgroup>
+        <tbody class="sms-send-list" id="sms-send-list"></tbody>
+      </table>
+    </div>
+
+    <!-- 삭제/저장 버튼 -->
+    <div class="mgt9">
+      <a href="javascript:;" id="btn-remove"     class="btn_default delete small">삭제</a>
+      <a href="javascript:;" id="btn-removeAll" class="btn_default delete small mgl6">전체삭제</a>
+      <a href="javascript:;" id="btn-addAddress" class="btn_default gray small mgl11">주소록에 저장</a>
+    </div>
+  </div><!-- /col2 -->
+
+  <!-- ===== col‑control : 가운데 이동 화살표 ===== -->
+  <div class="wrap_btn">
+    <a href="javascript:;" id="btnAddReciver"><img src="{{ '/static/images/btn_arrow_l.png' | relative_url }}" alt="이동" width="30" height="30"/></a>
+  </div>
+
+  <!-- ===== col3 : 주소록 ===== -->
+  <div class="col3" id="sms-address">
+    <div class="title">주소록</div>
+
+    <!-- 탭 (개인/부서) -->
+    <div class="wrap_tab mgt24">
+      <div class="tapAddress">
+        <ul class="tabs" data-persist="true">
+          <li class="selected"><a href="#addrView1">개인</a></li>
+          <li><a href="#addrView1" style="margin-left:-2px">부서</a></li>
+        </ul>
+      </div>
+      <div class="tabcontents">
+        <!-- tab 콘텐츠 -->
+        <div id="addrView1">
+          <!-- 검색바 -->
+          <div class="tac">
+            <select id="option_AddrSearch"><option value="name">이름</option><option value="phone">핸드폰번호</option></select>
+            <input class="small" id="text_AddrSearch" type="text" style="width:140px"/>
+            <a href="javascript:;" class="btn_default gray small mgl9" id="btn_addrSearch">검색</a>
+          </div>
+
+          <div class="box_left">
+            <!-- 그룹 리스트 헤더 -->
+            <div class="tbl_wrap_list_small2 mgt15" style="width:138px">
+              <table class="tbl_list"><col/><thead><tr><th scope="col" class="tac">그룹</th></tr></thead></table>
+            </div>
+            <!-- 그룹 리스트 스크롤 -->
+            <div class="tbl_wrap_list_small2 border_t0" style="width:138px;height:358px;overflow-y:scroll;">
+              <table class="tbl_list"><tbody><tr><td><div id="div_address_GroupList"></div></td></tr></tbody></table>
+            </div>
+          </div>
+
+          <div class="box_right">
+            <!-- 상세 헤더 -->
+            <div class="tbl_wrap_list_small2 mgt15" style="width:209px;border-left:1px solid #c4c4c4;">
+              <table class="tbl_list">
+                <colgroup><col style="width:92px"/><col/></colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col"><div class="checkbox_default"><input type="checkbox" id="select-all_address"/><label for="select-all_address">이름</label></div></th>
+                    <th scope="col">휴대폰번호</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <!-- 상세 리스트 -->
+            <div class="tbl_wrap_list_small2 border_t0" style="width:209px;height:358px;overflow-y:scroll;border-left:1px solid #c4c4c4;">
+              <table class="tbl_list"><colgroup><col style="width:94px"/><col/></colgroup><tbody id="div_address_AddrList" class="div_address_AddrList"></tbody></table>
+            </div>
+          </div>
+        </div>
+        <!-- /tab -->
+      </div>
+    </div>
+    <div class="mgt9 tar"><a href="javascript:;" id="moveAddr" class="btn_default gray small">주소록 관리</a></div>
+  </div><!-- /col3 -->
+</div><!-- /wrap_box_nsend -->
+
