@@ -9,7 +9,7 @@ layout: layout
   <title>일반보내기</title>
 
   <!-- favicon -->
-  <link rel="shortcut icon" href="{{ '/static/images/favicon.ico' | relative_url }}"/>
+  <!--<link rel="shortcut icon" href="{{ '/static/images/favicon.ico' | relative_url }}"/>-->
 
   <!-- 공통·컴포넌트 CSS -->
   <!--<link rel="stylesheet" href="{{ '/static/v2/css/common.css' | relative_url }}"/>
@@ -46,7 +46,7 @@ layout: layout
   <script src="{{ '/static/v2/js/jquery.number.js'        | relative_url }}"></script>
   <script src="{{ '/static/v2/js/jquery.slimscroll.min.js'| relative_url }}"></script>-->
   <!-- datatables & buttons (시각만) -->
-  <script src="{{ '/static/js/datatables.min.js' | relative_url }}"></script>
+  <!-- <script src="{{ '/static/js/datatables.min.js' | relative_url }}"></script> -->
   <!--<script src="{{ '/static/v2/js/dataTables.button.js'    | relative_url }}"></script>
   <script src="{{ '/static/v2/js/buttons.html5.min.js'    | relative_url }}"></script>
   <script src="{{ '/static/v2/js/buttons.print.min.js'    | relative_url }}"></script>
@@ -56,18 +56,14 @@ layout: layout
   <!--<script src="{{ '/static/v2/js/common.js' | relative_url }}"></script>-->
 
     <!-- vendor JS (jQuery 먼저) -->
-  <script src="{{ '/static/js/jquery.3.3.1.js'        | relative_url }}"></script>
+  <!-- <script src="{{ '/static/js/jquery.3.3.1.js'        | relative_url }}"></script>
   <script src="{{ '/static/js/jquery-ui.min.js'        | relative_url }}"></script>
   <script src="{{ '/static/js/moments.js'              | relative_url }}"></script>
   <script src="{{ '/static/js/jquery.number.js'        | relative_url }}"></script>
   <script src="{{ '/static/js/jquery.bpopup-min.js'    | relative_url }}"></script>
   <script src="{{ '/static/js/article-hide.js'         | relative_url }}"></script>
   <script src="{{ '/static/js/common/sha256.js'        | relative_url }}"></script>
-  <!-- zoom -->
-  <script src="{{ '/static/js/common/zoom.js'          | relative_url }}"></script>
-
-  <!-- datatables & buttons -->
-  <script src="{{ '/static/js/datatables.min.js'           | relative_url }}"></script>
+  <script src="{{ '/static/js/common/zoom.js'          | relative_url }}"></script>-->
 
 </head>
 <body>
@@ -101,7 +97,11 @@ layout: layout
     </article>
   </section>
 </div>
-
+<!-- === Page‑specific JS === -->
+<script src="{{ '/static/js/tabcontent.js'     | relative_url }}"></script>
+<script src="{{ '/static/js/messageUtil.js'    | relative_url }}"></script>
+<script src="{{ '/static/js/UmsValidation.js'  | relative_url }}"></script>
+<script src="{{ '/static/js/UmsByteCheck.js'   | relative_url }}"></script>
 <footer class="footer">Copyright © <span id="year"></span> All rights reserved.</footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 
@@ -115,11 +115,7 @@ layout: layout
 {% include dialog/fileUploadDialog.html %}
 {% include loading.html %}
 
-<!-- === Page‑specific JS === -->
-<script src="{{ '/static/js/tabcontent.js'     | relative_url }}"></script>
-<script src="{{ '/static/js/messageUtil.js'    | relative_url }}"></script>
-<script src="{{ '/static/js/UmsValidation.js'  | relative_url }}"></script>
-<script src="{{ '/static/js/UmsByteCheck.js'   | relative_url }}"></script>
+
 <!-- ajax·백엔드 호출부는 시연용 주석  -->
 <script>
 // ※ 실제 서비스에서는 아래 URL 을 API 게이트웨이로 교체하세요.
