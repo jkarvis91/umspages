@@ -50,7 +50,7 @@
   function showSpechar() {
     specharStart = $("#message").prop("selectionStart");
     specharEnd   = $("#message").prop("selectionEnd");
-    /*
+    
     $('#btn_spechar_close').off('click').on('click', () => {
       $('#spechar-modal').dialog('close');
       return false;
@@ -63,7 +63,7 @@
       specharStart += char.length;
       specharEnd   += char.length;
     });
-    */
+    
     $('#spechar-modal').dialog({
       modal: true,
       width: 480,
