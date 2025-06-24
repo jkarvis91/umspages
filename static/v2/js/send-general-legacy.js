@@ -36,7 +36,7 @@ $(function () {
   $('#moveAddr').on('click',()=>location.href='{{ "/pages/all-address.html" | relative_url }}');
 
   /* spechar 팝업 숨김 */
-  $('#spechar-modal').hide();
+  /* $('#spechar-modal').hide(); */
 });
 
 /* =================================================================
