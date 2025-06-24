@@ -190,31 +190,31 @@ function insertAtCaret (el, txt){
 /* -----------------------------------------------------------------
    spechar modal : global delegat
 ------------------------------------------------------------------ */
+/*
 $(document)
-/* X 버튼 */
   .on('click', '#btn_spechar_close', function (e) {
     e.preventDefault();
     $('#spechar-modal').dialog('close').dialog('destroy');
   })
-
+*/
 /* 특수문자 <a> 클릭 */
-  .on('click', '#spechar-modal a', function (e) {
+  /*.on('click', '#spechar-modal a', function (e) {
     e.preventDefault();
     const ch = $(this).text();
     /*
     insertAtCaret($('#message')[0], ch); // 직접 삽입
     messageByteCheck();                   // 바이트 계산만
      */
-    /* textarea 로 포커스 복원 & 커서 위치 복구 */
+/*
     const $msg = $('#message');
     $msg.focus()[0].setSelectionRange(specharStart, specharEnd);
      
-    /* 원본 util 에게 ‘추가 텍스트’만 넘겨서 삽입 + 바이트 계산 */
+
     messageByteCheck(ch);                 // insert & update
      
-    /* 다음 호출을 위해 좌표 업데이트 */
+
     specharStart = specharEnd = specharStart + ch.length;
      
     $('#spechar-modal').dialog('close').dialog('destroy');
   });
-
+*/
