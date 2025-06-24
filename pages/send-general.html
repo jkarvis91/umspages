@@ -89,7 +89,7 @@ input#messageTitle:-moz-placeholder { /* Firefox 18- */
 	              <label for="radio4">미신청고객</label>
 	            </div>
 	            <div class="tooltip" >
-	            	<img class="tooltipImg" src="${pageContext.request.contextPath}/static/images/icon_help_on.png" />
+	            	<img class="tooltipImg" src="{{ '/static/images/icon_help_on.png' | relative_url }}" />
 				</div>
           	</div>
          </td>
@@ -124,7 +124,7 @@ input#messageTitle:-moz-placeholder { /* Firefox 18- */
                 <div class="tac mgt19"><a href="javascript:;" class="btn_msave_blue" id="btnMessageSave">메시지저장</a><a href="javascript:;" class="btn_refresh_blue mgl6" id="btnMessageClear">새로쓰기</a><a href="javascript:;" class="btn_scode_blue mgl6" id="specharPreview">특수문자</a></div>
               </div>
               <div class="snum">발신번호 <input type="text" id="sender" name="search" value="" placeholder="입력하세요" ></div>
-              <div class="mgt15"><a href="javascript:;" ><img src="${pageContext.request.contextPath}/static/images/btn_preview.png" alt="미리보기" id="popupPreview" /></a><a href="javascript:;" class="mgl5" id="btn_reserve_send"><img src="${pageContext.request.contextPath}/static/images/btn_rsend.png" alt="예약전송" /></a><a href="javascript:;" class="mgl5"><img src="${pageContext.request.contextPath}/static/images/btn_send.png" id="btn_send" alt="보내기" /></a></div>
+              <div class="mgt15"><a href="javascript:;" ><img src="{{ '/static/images/btn_preview.png' | relative_url }}" alt="미리보기" id="popupPreview" /></a><a href="javascript:;" class="mgl5" id="btn_reserve_send"><img src="{{ '/static/images/btn_rsend.png' | relative_url }}" alt="예약전송" /></a><a href="javascript:;" class="mgl5"><img src="{{ '/static/images/btn_send.png' | relative_url }}" id="btn_send" alt="보내기" /></a></div>
               <input type="hidden" id="reserveDate"/>
             </div>
           </div>
@@ -180,7 +180,7 @@ input#messageTitle:-moz-placeholder { /* Firefox 18- */
     </div>
     <!-- //수신번호 -->
     <!-- button -->
-    <div class="wrap_btn"><a href="javascript:;" id="btnAddReciver"><img src="${pageContext.request.contextPath}/static/images/btn_arrow_l.png" alt="이동" width="30" height="30"></a></div>
+    <div class="wrap_btn"><a href="javascript:;" id="btnAddReciver"><img src="{{ '/static/images/btn_arrow_l.png' | relative_url }}" alt="이동" width="30" height="30"></a></div>
     <!-- //button -->
     <!-- 주소록 -->
     <div class="col3" id="sms-address">
@@ -299,7 +299,7 @@ input#messageTitle:-moz-placeholder { /* Firefox 18- */
 	            <li><a href="#view_tab1" class="big" style="margin-left:-2px;">본부양식</a></li>
 	            <li><a href="#view_tab1" class="big" style="margin-left:-2px;">개인메시지함</a></li>
 	            <li><a href="#view_tab1" class="big" style="margin-left:-2px;">부서메시지함</a></li>
-	            <span class="btn"><a href="${pageContext.request.contextPath}/form/happy.do"><img src="${pageContext.request.contextPath}/static/images/btn_more.png" alt="더 보기" /></a></span>
+	            <span class="btn"><a href="{{ '/form/happy.do' | relative_url }}"><img src="{{ '/static/images/btn_more.png' | relative_url }}" alt="더 보기" /></a></span>
 	        </ul>
         </div>
         <div class="tabcontents big">
