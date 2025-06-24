@@ -55,7 +55,9 @@ $(function () {
       if(isSmsMainMsg&&isFirstMsg){ $(this).val(''); isFirstMsg=false; }
       else if(!isSmsMainMsg){ $('#cusType_0').focus(); }
     })
-    .on('keyup',messageByteCheck);
+    .on('keyup', function() {
+      messageByteCheck();
+    });
 
   $('#messageTitle')
     .on('focus',function(){ if(!isSmsMainMsg) $('#cusType_0').focus(); })
@@ -78,6 +80,7 @@ $(function () {
 /* =================================================================
    4. 특수문자 팝업 (정적)
 ================================================================= */
+/*
 $(function () {
 
   const showSpechar = () => $('#spechar-modal').fadeIn(120);
@@ -110,7 +113,7 @@ $(function () {
     }else{ el.value+=txt; }
   }
 });
-
+*/
 /* =================================================================
    5. Dummy Ajax (네트워크 차단)
 ================================================================= */
