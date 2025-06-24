@@ -45,30 +45,46 @@
 
 <!-- ===== 스크립트 ===== -->
 <script>
-  let specharStart = 0, specharEnd = 0;
+  var startPosition = 0;
+  var endPosition   = 0;
 
-  function showSpechar() {
-    specharStart = $("#message").prop("selectionStart");
-    specharEnd   = $("#message").prop("selectionEnd");
-    /*
-    $('#btn_spechar_close').off('click').on('click', () => {
+  function showSpechar () {
+    startPosition = $('#message').prop('selectionStart');
+    endPosition   = $('#message').prop('selectionEnd');
+
+    /* X 버튼 */
+    $('#btn_spechar_close')
+      .off('click')
+      .on('click', function () {
+        $('#spechar-modal').dialog('close');
+        return false;
+      });
+
+    /* 문자 <a> 바인딩 */
+    $('#spechar-modal a').off('click').on('click', function (e) {
+      e.preventDefault();
+
+      /* ① textarea 로 포커스 + 커서 복원 */
+      const $msg = $('#message');
+      $msg.focus()[0].setSelectionRange(startPosition, endPosition);
+
+      /* ② 문자 삽입 + byte 계산 */
+      const ch = $(this).text();
+      messageByteCheck(ch);
+
+      /* ③ 커서 좌표 업데이트 */
+      startPosition = endPosition = startPosition + ch.length;
+
+      /* ④ 팝업 닫기(선택) */
       $('#spechar-modal').dialog('close');
-      return false;
     });
 
-    // 문자 클릭
-    $('#spechar-modal a').off('click').on('click', function () {
-      const char = $(this).text();
-      messageByteCheck(char);            // 외부 util 함수 그대로 사용
-      specharStart += char.length;
-      specharEnd   += char.length;
-    });
-    */
+    /* dialog 띄우기 */
     $('#spechar-modal').dialog({
-      modal: true,
-      width: 480,
+      modal   : true,
+      width   : 480,
       position: { my: 'left top', at: 'right top', of: '#message' },
-      open   : function(){ $(this).css('padding',0); },
+      open    : function(){ $(this).css('padding', 0); }
     });
     $('.ui-dialog-titlebar').hide();
   }
