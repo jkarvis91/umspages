@@ -76,10 +76,18 @@ $(function () {
     .on('keypress',e=>{ if(e.which===13){ e.preventDefault(); $('#btn-add').click(); }});
 
 });
-
 /* =================================================================
    4. 특수문자 팝업 (정적)
 ================================================================= */
+/* spechar 버튼 → jQuery-UI dialog 열기 */
+$(document).on('click', '#specharPreview', function (e) {
+  e.preventDefault();
+  if (!$('input[name=cusType]:checked').length) {
+    return showAlert('발송종류를 선택해주십시요.');
+  }
+  showSpechar();             // ←  specharDialog.html 에 정의된 함수
+});
+
 /*
 $(function () {
 
