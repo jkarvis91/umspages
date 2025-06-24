@@ -146,4 +146,17 @@ function validateMsgSendInfo(){
   const addrs=$('#sms-send-list tr'); if(!addrs.length) return showAlert('수신번호를 추가 하거나<br>주소록에서 선택하십시오.'),false;
   let receivers=''; addrs.each((i,tr)=>{ const $tr=$(tr); receivers+=`${$tr.find('label').text()}:${$tr.find('.phone').text()}|`; });
   if(_byte>2000) return showAlert('메시지가 2000byte 를 초과하였습니다.'),false;
-  msg
+  
+  msgSendInfo = getMsgSendInfo();              // 전역 템플릿 객체 복사
+  msgSendInfo.cusType    = cusType;
+  msgSendInfo.sendType   = $('.byte span').text();      // SMS / MMS
+  msgSendInfo.userAd     = $('input[name=userAd]:checked').val();
+  msgSendInfo.sendCount  = addrs.length;
+  msgSendInfo.receivers  = receivers;
+  msgSendInfo.sender     = $('#sender').val();
+  msgSendInfo.title      = $('#messageTitle').val();
+  msgSendInfo.message    = $('#message').val();
+  msgSendInfo.reserveDate = $('#reserveDate').val();
+  /* 최종 OK 반환 */
+  return true;
+}
