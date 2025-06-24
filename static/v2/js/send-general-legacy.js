@@ -1,138 +1,147 @@
-const BASE = '';                 //✱ 서버 root 불필요
+/* ------------------------------------------------------------------
+   send-general-legacy.js  (DEMO 정적판 - FULL)
+------------------------------------------------------------------ */
 
-/*============================================================
-  2) 글로벌 상태 변수
-============================================================*/
+const BASE = '';
+
+/* ===================== 1. 글로벌 상태 =========================== */
 let isSmsMainMsg = false;
 let isFirstMsg   = true;
-let _byte        = 0;            // 메시지 byte 길이
+let _byte        = 0;
 let alertMms     = 'SMS';
-const emplId     = 'STATIC';     // 데모용 고정
+const emplId     = 'STATIC';
 
-/*============================================================
-  3) DOM Ready  –  기본 이벤트 바인딩
-============================================================*/
-$(function(){
-  /* ── Tooltip 위치 */
+/* =================================================================
+   2. DOM Ready – 공통 바인딩
+================================================================= */
+$(function () {
+  /* Tooltip  */
   $('.tooltiptext').position({ my:'left+5 top', at:'right top', of:'.tooltipImg' });
-  $('.tooltipImg').hover(
-    ()=>$('.tooltiptext').css('visibility','visible'),
-    ()=>$('.tooltiptext').css('visibility','hidden')
-  );
+  $('.tooltipImg').hover(()=>$('.tooltiptext').css('visibility','visible'),
+                          ()=>$('.tooltiptext').css('visibility','hidden'));
 
-  /* ── 발송종류 안내 */
+  /* 발송종류 안내 */
   $('#cusType_1').on('click',()=>showAlert('마케팅 목적의 문자는 발송불가하며\n 고객관리(생일축하, 감성메시지 등)은 CRM시스템을 이용해주시기 바랍니다.'));
   $('#cusType_0').on('click',()=>$('html,body').animate({scrollTop:$('.tbl_view01').offset().top},400));
 
-  /* ── 메인 안내 클릭 */
+  /* 첫 안내 문구 클릭 */
   $('.main-msg').on('click',function(){
     const c=$('input[name=cusType]:checked').val();
-    if(c==='0'){ $(this).remove(); $('#message').trigger('click'); }
-    else if(c==='1'){ showAlert('마케팅 목적의 문자는 발송불가하며\n 고객관리(생일축하, 감성메시지 등)은 CRM시스템을 이용해주시기 바랍니다.'); }
-    else { showAlert('발송종류를 선택해주십시요.'); }
+    if(!c)      return showAlert('발송종류를 선택해주십시요.');
+    if(c==='1') return showAlert('마케팅 목적의 문자는 발송불가하며\n 고객관리(생일축하, 감성메시지 등)은 CRM시스템을 이용해주시기 바랍니다.');
+    $(this).remove(); $('#message').trigger('click');
   });
 
-  /* ── 주소록 관리 이동  (서버 URL → 정적 페이지) */
+  /* 주소록 관리 → 정적 페이지 */
   $('#moveAddr').on('click',()=>location.href='{{ "/pages/all-address.html" | relative_url }}');
 
-  /* ── 세션 keep 콜 제거 (정적 사이트는 필요 없음) */
+  /* spechar 팝업 숨김 */
+  $('#spechar-modal').hide();
 });
 
-/*============================================================
-  4) 메시지 입력 영역 이벤트
-============================================================*/
-$(function(){
+/* =================================================================
+   3. 입력 영역 이벤트
+================================================================= */
+$(function () {
+
   $('#message')
     .on('click',function(){
       const c=$('input[name=cusType]:checked').val();
-      if(!c) return showAlert('발송종류를 선택해주십시요.'),isSmsMainMsg=false;
-      if(c==='1') return showAlert('마케팅 목적의 문자는 발송불가하며\n 고객관리(생일축하, 감성메시지 등)은 CRM시스템을 이용해주시기 바랍니다.'),isSmsMainMsg=false;
+      if(!c)   { showAlert('발송종류를 선택해주십시요.'); isSmsMainMsg=false; return; }
+      if(c==='1'){ showAlert('마케팅 목적의 문자는 발송불가하며\n 고객관리(생일축하, 감성메시지 등)은 CRM시스템을 이용해주시기 바랍니다.'); isSmsMainMsg=false; return; }
       $('.main-msg').remove(); isSmsMainMsg=true; this.focus();
     })
-    .on('focus',function(){ if(isSmsMainMsg&&isFirstMsg){ $(this).val(''); isFirstMsg=false; } else if(!isSmsMainMsg){ $('#cusType_0').focus(); }})
+    .on('focus',function(){
+      if(isSmsMainMsg&&isFirstMsg){ $(this).val(''); isFirstMsg=false; }
+      else if(!isSmsMainMsg){ $('#cusType_0').focus(); }
+    })
     .on('keyup',messageByteCheck);
 
   $('#messageTitle')
     .on('focus',function(){ if(!isSmsMainMsg) $('#cusType_0').focus(); })
-    .on('keyup',function(){ const max=40,i=UmsByteCheck.getBytesAndMaxLength($(this).val(),max); if(i.totalByte>max){ showAlert(`제목은 ${max}byte 까지 입력 가능 합니다.`); $(this).val($(this).val().substring(0,i.ableLength)); } });
+    .on('keyup',function(){
+      const max=40;
+      const i=UmsByteCheck.getBytesAndMaxLength($(this).val(),max);
+      if(i.totalByte>max){
+        showAlert(`제목은 ${max}byte 까지 입력 가능 합니다.`);
+        $(this).val($(this).val().substring(0,i.ableLength));
+      }
+    });
 
   $('#sender').on('keyup',()=>inputPhoneType($('#sender')));
   $('#receiverNum')
-    .on('keyup',function(){ if(!$('input[name=cusType]:checked').val()) return showAlert('발송종류를 선택해주십시요.'),$(this).val(''); inputPhoneType($(this)); })
+    .on('keyup',function(){ if(!$('input[name=cusType]:checked').length){ showAlert('발송종류를 선택해주십시요.'); $(this).val(''); } inputPhoneType($(this)); })
     .on('keypress',e=>{ if(e.which===13){ e.preventDefault(); $('#btn-add').click(); }});
+
 });
 
-/*============================================================
-  5) 버튼 영역 이벤트
-============================================================*/
-$(function(){
-  $('#popupPreview').on('click',()=>{ if(!$('input[name=cusType]:checked').val()) return showAlert('발송종류를 선택해주십시요.'); showPreview($('#messageTitle').val(),$('#message').val()); return false; });
-  $('#specharPreview').on('click',()=>{ if(!$('input[name=cusType]:checked').val()) return showAlert('발송종류를 선택해주십시요.'); showSpechar(); return false; });
-  $('#btn_reserve_send').on('click',()=>{ if(!$('input[name=cusType]:checked').val()) return showAlert('발송종류를 선택해주십시요.'); if(validateMsgSendInfo()!==false) showReserve(msgSendInfo); });
-  $('#btn_send').on('click',()=>{ if(validateMsgSendInfo()!==false) showConfirmSend(`${msgSendInfo.sendCount} 건의 메시지를 전송하시겠습니까?`,msgSend,msgSendInfo); });
+/* =================================================================
+   4. 특수문자 팝업 (정적)
+================================================================= */
+$(function () {
+
+  const showSpechar = () => $('#spechar-modal').fadeIn(120);
+
+  $('#specharPreview').on('click',e=>{
+    e.preventDefault();
+    if(!$('input[name=cusType]:checked').length) return showAlert('발송종류를 선택해주십시요.');
+    showSpechar();
+  });
+
+  $(document)
+    .on('click','#btn_spechar_close',e=>{
+      e.preventDefault(); $('#spechar-modal').fadeOut(120);
+    })
+    .on('click','#spechar-modal a',e=>{
+      e.preventDefault();
+      insertAtCaret($('#message')[0], $(e.target).text());
+      $('#spechar-modal').fadeOut(120);
+      messageByteCheck();
+    });
+
+  function insertAtCaret(el,txt){
+    el.focus();
+    if(document.selection){
+      const sel=document.selection.createRange(); sel.text=txt;
+    }else if(el.selectionStart!==undefined){
+      const s=el.selectionStart,e=el.selectionEnd;
+      el.value=el.value.slice(0,s)+txt+el.value.slice(e);
+      el.selectionStart=el.selectionEnd=s+txt.length;
+    }else{ el.value+=txt; }
+  }
 });
 
-/*============================================================
-  6) Ajax 래퍼 – 더미 데이터 반환 (네트워크 차단)
-============================================================*/
-function mockData(path){
-  // 필요한 경우 이곳에 경로별 mock JSON 을 집어넣는다
-  const dummy = {
-    '/addressCall/personal': {addrType:'personal', personalGroupList:[], shareGroupList:[]},
-    '/form/happy': {startPage:1,endPage:1,currentPage:1,data:[]}
-  };
-  return dummy[path] || {};
+/* =================================================================
+   5. Dummy Ajax (네트워크 차단)
+================================================================= */
+function mockData(p){
+  const d={
+    '/addressCall/personal':{addrType:'personal',personalGroupList:[],shareGroupList:[]},
+    '/form/happy':{startPage:1,endPage:1,currentPage:1,data:[]}
+  }; return d[p]||{};
 }
+const ajaxGET =(p,q,cb)=>{console.log('[DEMO] GET',p,q);setTimeout(()=>cb(mockData(p)),200);}
+const ajaxPOST=(p,b,cb)=>{console.log('[DEMO] POST',p,b);setTimeout(()=>cb(mockData(p)),200);}
 
-function ajaxGET(path,qs,cb){         //✱ 실제 호출 없음
-  console.log('[DEMO] GET',path,qs);
-  setTimeout(()=>cb(mockData(path)),200);
-}
-function ajaxPOST(path,payload,cb){   //✱ 실제 호출 없음
-  console.log('[DEMO] POST',path,payload);
-  setTimeout(()=>cb(mockData(path)),200);
-}
-
-/*============================================================
-  7) DEMO용 API 래핑 (원본 함수명 유지)
-============================================================*/
 function reloadAddressViewData(){ ajaxGET(`/addressCall/`+addrGroupCode,null,handleAddressGroups); }
 function reloadPreViewData()    { ajaxPOST(`/form/`+code,msgFormInfo,handlePreviewResult); }
 
-/*------------------------------------------------------------
-  ✱ 실제 발송 대신 화면만 초기화 – 원본 멘트는 그대로
-------------------------------------------------------------*/
+/* =================================================================
+   6. 실제 발송 → 데모 처리
+================================================================= */
 function msgSend(info){
-  /* --- 원본 Alert·멘트 유지 --------------------------- */
-  var completeMsg = "요청 되었습니다.";
-  if(info.reserveDate) completeMsg = "예약 되었습니다.";
+  const completeMsg = info.reserveDate ? '예약 되었습니다.' : '요청 되었습니다.';
+  const targetCnt   = $('#sms-receiver .title span').text();
 
-  /* 화면에 찍힌 ‘총 n건’ 그대로 가져오기 */
-  var targetCnt = $("#sms-receiver .title span").text();
-
-  /* 전송 결과(에러·중복) → 데모에선 전부 0 건으로 가정 */
-  var dupCount = 0, cutCount = 0, exceedCount = 0,
-      unitDiscordCount = 0, etcCount = 0;
-
-  var msg = "";
-  msg += "전체 "+targetCnt+"건중<br>";
-  if ((targetCnt - dupCount) > 0){ msg += "중복 " + (targetCnt - dupCount) + "건<br>"; }
-  if (cutCount > 0){ msg += "수신거부 " + cutCount + "건<br>"; }
-  if (exceedCount > 0){ msg += "허용 건수 초과 " + exceedCount + "건<br>"; }
-  if (unitDiscordCount > 0){ msg += "미등록 오류 " + unitDiscordCount + "건<br>"; }
-  if (etcCount > 0){ msg += "기타 오류 " + etcCount + "건<br>"; }
-  if(msg.indexOf("건<br>")>-1) msg += "제외 하고<br/>";
-  msg += info.sendCount + "건이 전송" + completeMsg;
-
-  /* 실제 Swal 호출 */
+  let msg='전체 '+targetCnt+'건중<br>'+info.sendCount+'건이 전송'+completeMsg;
   showAlert(msg);
   console.log('[DEMO] send payload',info);
   initSendInfo();
 }
-/*============================================================
-  8) 원본 함수 영역 – BASE 치환 외 로직 그대로
-============================================================*/
-/** validateMsgSendInfo() – 사용자 입력 검증 후 msgSendInfo 구성 */
+
+/* =================================================================
+   7. 검증 (원본 유지)
+================================================================= */
 function validateMsgSendInfo(){
   let cusType=null; $('input[name=cusType]').each(function(){ if($(this).is(':checked')) cusType=$(this).val(); });
   if(!cusType)      return showAlert('발송종류를 선택해주십시요.'),false;
@@ -144,75 +153,79 @@ function validateMsgSendInfo(){
   if(!$('#message').val().trim()) return showAlert('메세지 내용을 입력해 주시기 바랍니다.'),false;
   if(_byte>88&&!$('#messageTitle').val().trim()) return showAlert('메시지 제목을 입력하십시오.'),false;
   const addrs=$('#sms-send-list tr'); if(!addrs.length) return showAlert('수신번호를 추가 하거나<br>주소록에서 선택하십시오.'),false;
-  let receivers=''; addrs.each((i,tr)=>{ const $tr=$(tr); receivers+=`${$tr.find('label').text()}:${$tr.find('.phone').text()}|`; });
   if(_byte>2000) return showAlert('메시지가 2000byte 를 초과하였습니다.'),false;
-  
-  msgSendInfo = getMsgSendInfo();              // 전역 템플릿 객체 복사
-  msgSendInfo.cusType    = cusType;
-  msgSendInfo.sendType   = $('.byte span').text();      // SMS / MMS
-  msgSendInfo.userAd     = $('input[name=userAd]:checked').val();
-  msgSendInfo.sendCount  = addrs.length;
-  msgSendInfo.receivers  = receivers;
-  msgSendInfo.sender     = $('#sender').val();
-  msgSendInfo.title      = $('#messageTitle').val();
-  msgSendInfo.message    = $('#message').val();
-  msgSendInfo.reserveDate = $('#reserveDate').val();
-  /* 최종 OK 반환 */
+
+  msgSendInfo              = getMsgSendInfo();
+  msgSendInfo.cusType      = cusType;
+  msgSendInfo.sendType     = $('.byte span').text();
+  msgSendInfo.userAd       = $('input[name=userAd]:checked').val();
+  msgSendInfo.sendCount    = addrs.length;
+  msgSendInfo.sender       = $('#sender').val();
+  msgSendInfo.title        = $('#messageTitle').val();
+  msgSendInfo.message      = $('#message').val();
+  msgSendInfo.reserveDate  = $('#reserveDate').val();
+
+  let receivers=''; addrs.each((i,tr)=>{ const $tr=$(tr); receivers+=`${$tr.find('label').text()}:${$tr.find('.phone').text()}|`; });
+  msgSendInfo.receivers = receivers;
   return true;
 }
-/* --------------- 특수문자 팝업(정적) --------------- */
-$(function () {                       // ★ DOM Ready 에서 시작
-  /* 최초엔 display:none 으로 숨겨 둔다 */
-  $('#spechar-modal').hide();         // ★
 
-  /* 팝업 열기 */
-  function showSpechar () {
-    $('#spechar-modal').fadeIn(120);
+/* =================================================================
+   8. util 함수 (원본 그대로)
+================================================================= */
+/* byte 계산 & SMS/MMS 표시 */
+function messageByteCheck(addText){
+  if(addText){                      // 팝업으로 삽입된 경우
+    const m=$('#message'), s=m.prop('selectionStart'), e=m.prop('selectionEnd');
+    m.val(m.val().substring(0,s)+addText+m.val().substring(e));
   }
+  _byte = checkByteTextarea($('#message'));
+  if(_byte>90){ alertMms='MMS'; $('#messageTitle').show(); }
+  else        { alertMms='SMS'; $('#messageTitle').val('').hide(); }
 
-  /* 특수문자 버튼 → 팝업 오픈 */
-  $('#specharPreview').on('click', function (e) {
-    e.preventDefault();
-    if (!$('input[name=cusType]:checked').length) {
-      return showAlert('발송종류를 선택해주십시요.');
-    }
-    showSpechar();
-  });
+  $('.byte').html(_byte+' byte <span>'+alertMms+'</span>');
 
-  /* ▼ 여기부터는 “위임 바인딩”(동적 요소 대응) ---------------- */
-
-  /* X 버튼으로 닫기 */
-  $(document).on('click', '#btn_spechar_close', function (e) { // ★
-    e.preventDefault();
-    $('#spechar-modal').fadeOut(120);
-  });
-
-  /* 문자 <a> 클릭 → textarea 에 삽입 */
-  $(document).on('click', '#spechar-modal a', function (e) {   // ★
-    e.preventDefault();
-    const ch = $(this).text();
-    insertAtCaret($('#message')[0], ch);
-    $('#spechar-modal').fadeOut(120);      // 선택과 동시에 닫기
-    messageByteCheck();                    // byte / SMS·MMS 갱신
-  });
-
-  /* 커서 위치에 문자열 삽입 (IE 포함) */
-  function insertAtCaret (el, txt) {
-    el.focus();
-    if (document.selection) {              // IE ≤ 8
-      const sel = document.selection.createRange();
-      sel.text = txt;
-    } else if (el.selectionStart !== undefined) {
-      const start = el.selectionStart,
-            end   = el.selectionEnd;
-      el.value =
-        el.value.substring(0, start) + txt +
-        el.value.substring(end);
-      el.selectionStart = el.selectionEnd = start + txt.length;
-    } else {
-      el.value += txt;                     // fallback
-    }
+  if(_byte>2000){
+    showAlert('2000byte 를 초과할 수 없습니다.');
+    let v=$('#message').val();
+    while(checkByteTextarea({value:v})>2000){ v=v.slice(0,-1); }
+    $('#message').val(v); messageByteCheck();
   }
-});
+}
 
+/* Byte 계산 util (UmsByteCheck 래퍼) */
+function checkByteTextarea($el){
+  return UmsByteCheck.getBytesAndMaxLength($el.value||$el.val(),2000).totalByte;
+}
 
+/* 숫자만 입력 */
+function inputPhoneType($el){ $el.val($el.val().replace(/[^0-9-]/g,'')); }
+
+/* swal 래퍼 – 프로젝트 util 원본 유지 */
+function showAlert(msg){ swal('알림',msg,'warning'); }
+
+/* 이하 showPreview, showReserve, showConfirmSend, getMsgSendInfo,
+   initSendInfo 등 원본 util 함수 ↓ (필요 부분만 발췌)            */
+
+function showPreview(t,msg){
+  $('#previewTitle').text(t||'(제목 없음)');
+  $('#previewBody').text(msg);
+  $('#preview-modal').fadeIn(120);
+}
+$(document).on('click','#preview-close',()=>$('#preview-modal').fadeOut(120));
+
+function showReserve(info){ swal('데모','예약 팝업 대체','info'); }
+function showConfirmSend(txt,fn,payload){
+  swal({title:'확인',html:txt,icon:'info',buttons:['취소','확인']})
+    .then(ok=>{ if(ok) fn(payload); });
+}
+
+function getMsgSendInfo(){ return {uniqueKey:null}; }
+
+function initSendInfo(){
+  $('#messageTitle').val('').hide();
+  $('#message').val('');
+  $('#sms-send-list').empty();
+  $('.byte').html('0 byte <span>SMS</span>');
+  _byte=0; isFirstMsg=true; alertMms='SMS';
+}
