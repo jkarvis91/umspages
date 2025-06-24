@@ -169,3 +169,23 @@ function messageByteCheck(addText){
     $('#message').val(v); messageByteCheck();
   }
 }
+
+/* -----------------------------------------------------------------
+   spechar modal : global delegat
+------------------------------------------------------------------ */
+$(document)
+/* X 버튼 */
+  .on('click', '#btn_spechar_close', function (e) {
+    e.preventDefault();
+    $('#spechar-modal').dialog('close').dialog('destroy');
+  })
+
+/* 특수문자 <a> 클릭 */
+  .on('click', '#spechar-modal a', function (e) {
+    e.preventDefault();
+    const ch = $(this).text();
+    insertAtCaret($('#message')[0], ch);  // 직접 삽입
+    messageByteCheck();                   // 바이트 계산만
+    $('#spechar-modal').dialog('close').dialog('destroy');
+  });
+
