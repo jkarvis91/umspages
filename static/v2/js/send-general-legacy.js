@@ -1,16 +1,13 @@
-/* send-general-legacy.js – GitHub Pages 호환 풀버전 (v3)
-   ▷ BASE 상수 기반으로 모든 URL 치환
-   ▷ 404 발생 시 mock JSON 대체 로직 포함
-   ▷ 기존 함수·변수명 완전 유지 (명칭 변경 없음) */
+const BASE = '';                 //✱ 서버 root 불필요
 
 /*============================================================
   2) 글로벌 상태 변수
 ============================================================*/
 let isSmsMainMsg = false;
 let isFirstMsg   = true;
-let _byte        = 0;        // 메시지 byte 길이
+let _byte        = 0;            // 메시지 byte 길이
 let alertMms     = 'SMS';
-const emplId     = 'STATIC'; // 서버 세션 없는 정적 DEMO
+const emplId     = 'STATIC';     // 데모용 고정
 
 /*============================================================
   3) DOM Ready  –  기본 이벤트 바인딩
@@ -35,11 +32,10 @@ $(function(){
     else { showAlert('발송종류를 선택해주십시요.'); }
   });
 
-  /* ── 주소록 관리 이동 */
-  $('#moveAddr').on('click',()=>setTimeout(()=>{location.href=BASE+'/all-address.do';},100));
+  /* ── 주소록 관리 이동  (서버 URL → 정적 페이지) */
+  $('#moveAddr').on('click',()=>location.href='{{ "/pages/all-address.html" | relative_url }}');
 
-  /* ── Keep‑Session DEMO */
-  setTimeout(()=>$.get(BASE+'/keepSession.do').fail(()=>console.log('[INFO] keepSession.do (demo)')),300000);
+  /* ── 세션 keep 콜 제거 (정적 사이트는 필요 없음) */
 });
 
 /*============================================================
@@ -77,23 +73,65 @@ $(function(){
 });
 
 /*============================================================
-  6) Ajax 래퍼 – 404 → mock JSON 대체
+  6) Ajax 래퍼 – 더미 데이터 반환 (네트워크 차단)
 ============================================================*/
-function mockPath(p){ return `/mock${p.replace(/\?.*/, '')}.json`; }
-function ajaxGET(path,qs,cb){ $.ajax({url:BASE+path,type:'GET',dataType:'json',data:qs}).done(cb).fail(()=>$.getJSON(BASE+mockPath(path),cb)); }
-function ajaxPOST(path,payload,cb){ $.ajax({url:BASE+path,type:'POST',dataType:'json',contentType:'application/json; charset=utf-8',data:JSON.stringify(payload)}).done(cb).fail(()=>$.getJSON(BASE+mockPath(path),cb)); }
+function mockData(path){
+  // 필요한 경우 이곳에 경로별 mock JSON 을 집어넣는다
+  const dummy = {
+    '/addressCall/personal': {addrType:'personal', personalGroupList:[], shareGroupList:[]},
+    '/form/happy': {startPage:1,endPage:1,currentPage:1,data:[]}
+  };
+  return dummy[path] || {};
+}
+
+function ajaxGET(path,qs,cb){         //✱ 실제 호출 없음
+  console.log('[DEMO] GET',path,qs);
+  setTimeout(()=>cb(mockData(path)),200);
+}
+function ajaxPOST(path,payload,cb){   //✱ 실제 호출 없음
+  console.log('[DEMO] POST',path,payload);
+  setTimeout(()=>cb(mockData(path)),200);
+}
 
 /*============================================================
   7) DEMO용 API 래핑 (원본 함수명 유지)
 ============================================================*/
 function reloadAddressViewData(){ ajaxGET(`/addressCall/`+addrGroupCode,null,handleAddressGroups); }
 function reloadPreViewData()    { ajaxPOST(`/form/`+code,msgFormInfo,handlePreviewResult); }
-function msgSend(info){ console.log('[DEMO] send payload',info); swal('데모',`${info.sendCount}건 전송(가정)`,'success'); initSendInfo(); }
 
+/*------------------------------------------------------------
+  ✱ 실제 발송 대신 화면만 초기화 – 원본 멘트는 그대로
+------------------------------------------------------------*/
+function msgSend(info){
+  /* --- 원본 Alert·멘트 유지 --------------------------- */
+  var completeMsg = "요청 되었습니다.";
+  if(info.reserveDate) completeMsg = "예약 되었습니다.";
+
+  /* 화면에 찍힌 ‘총 n건’ 그대로 가져오기 */
+  var targetCnt = $("#sms-receiver .title span").text();
+
+  /* 전송 결과(에러·중복) → 데모에선 전부 0 건으로 가정 */
+  var dupCount = 0, cutCount = 0, exceedCount = 0,
+      unitDiscordCount = 0, etcCount = 0;
+
+  var msg = "";
+  msg += "전체 "+targetCnt+"건중<br>";
+  if ((targetCnt - dupCount) > 0){ msg += "중복 " + (targetCnt - dupCount) + "건<br>"; }
+  if (cutCount > 0){ msg += "수신거부 " + cutCount + "건<br>"; }
+  if (exceedCount > 0){ msg += "허용 건수 초과 " + exceedCount + "건<br>"; }
+  if (unitDiscordCount > 0){ msg += "미등록 오류 " + unitDiscordCount + "건<br>"; }
+  if (etcCount > 0){ msg += "기타 오류 " + etcCount + "건<br>"; }
+  if(msg.indexOf("건<br>")>-1) msg += "제외 하고<br/>";
+  msg += info.sendCount + "건이 전송" + completeMsg;
+
+  /* 실제 Swal 호출 */
+  showAlert(msg);
+  console.log('[DEMO] send payload',info);
+  initSendInfo();
+}
 /*============================================================
   8) 원본 함수 영역 – BASE 치환 외 로직 그대로
 ============================================================*/
-
 /** validateMsgSendInfo() – 사용자 입력 검증 후 msgSendInfo 구성 */
 function validateMsgSendInfo(){
   let cusType=null; $('input[name=cusType]').each(function(){ if($(this).is(':checked')) cusType=$(this).val(); });
