@@ -160,49 +160,59 @@ function validateMsgSendInfo(){
   /* 최종 OK 반환 */
   return true;
 }
+/* --------------- 특수문자 팝업(정적) --------------- */
+$(function () {                       // ★ DOM Ready 에서 시작
+  /* 최초엔 display:none 으로 숨겨 둔다 */
+  $('#spechar-modal').hide();         // ★
 
-/* ---------- 특수문자 팝업 (정적 버전) ---------- */
-function showSpechar () {
-  $('#spechar-modal').fadeIn(120);
-}
-
-/* X 버튼으로 닫기 */
-$('#btn_spechar_close').on('click', function (e) {
-  e.preventDefault();
-  $('#spechar-modal').fadeOut(120);
-});
-
-/* 문자 <a> 클릭 → textarea 에 삽입 */
-$('#spechar-modal').on('click', 'a', function (e) {
-  e.preventDefault();
-  const ch = $(this).text();
-  insertAtCaret($('#message')[0], ch);
-  $('#spechar-modal').fadeOut(120);   // 선택과 동시에 닫기
-  messageByteCheck();                 // 바이트/SMS-MMS 표시 갱신
-});
-
-/* 커서 위치에 문자열 삽입(IE 포함) */
-function insertAtCaret (el, txt) {
-  el.focus();
-  if (document.selection) {            // IE ≤ 8
-    const sel = document.selection.createRange();
-    sel.text = txt;
-  } else if (el.selectionStart || el.selectionStart === 0) {
-    const start = el.selectionStart;
-    const end   = el.selectionEnd;
-    el.value = el.value.substring(0, start) + txt + el.value.substring(end);
-    el.selectionStart = el.selectionEnd = start + txt.length;
-  } else {                             // fallback
-    el.value += txt;
+  /* 팝업 열기 */
+  function showSpechar () {
+    $('#spechar-modal').fadeIn(120);
   }
-}
 
-/* 특수문자 버튼(#specharPreview) → 팝업 열기 */
-$('#specharPreview').on('click', function (e) {
-  e.preventDefault();
-  if (!$('input[name=cusType]:checked').length) {
-    return showAlert('발송종류를 선택해주십시요.');
+  /* 특수문자 버튼 → 팝업 오픈 */
+  $('#specharPreview').on('click', function (e) {
+    e.preventDefault();
+    if (!$('input[name=cusType]:checked').length) {
+      return showAlert('발송종류를 선택해주십시요.');
+    }
+    showSpechar();
+  });
+
+  /* ▼ 여기부터는 “위임 바인딩”(동적 요소 대응) ---------------- */
+
+  /* X 버튼으로 닫기 */
+  $(document).on('click', '#btn_spechar_close', function (e) { // ★
+    e.preventDefault();
+    $('#spechar-modal').fadeOut(120);
+  });
+
+  /* 문자 <a> 클릭 → textarea 에 삽입 */
+  $(document).on('click', '#spechar-modal a', function (e) {   // ★
+    e.preventDefault();
+    const ch = $(this).text();
+    insertAtCaret($('#message')[0], ch);
+    $('#spechar-modal').fadeOut(120);      // 선택과 동시에 닫기
+    messageByteCheck();                    // byte / SMS·MMS 갱신
+  });
+
+  /* 커서 위치에 문자열 삽입 (IE 포함) */
+  function insertAtCaret (el, txt) {
+    el.focus();
+    if (document.selection) {              // IE ≤ 8
+      const sel = document.selection.createRange();
+      sel.text = txt;
+    } else if (el.selectionStart !== undefined) {
+      const start = el.selectionStart,
+            end   = el.selectionEnd;
+      el.value =
+        el.value.substring(0, start) + txt +
+        el.value.substring(end);
+      el.selectionStart = el.selectionEnd = start + txt.length;
+    } else {
+      el.value += txt;                     // fallback
+    }
   }
-  showSpechar();
 });
+
 
