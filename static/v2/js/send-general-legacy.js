@@ -88,40 +88,6 @@ $(document).on('click', '#specharPreview', function (e) {
   showSpechar();             // ←  specharDialog.html 에 정의된 함수
 });
 
-/*
-$(function () {
-
-  const showSpechar = () => $('#spechar-modal').fadeIn(120);
-
-  $('#specharPreview').on('click',e=>{
-    e.preventDefault();
-    if(!$('input[name=cusType]:checked').length) return showAlert('발송종류를 선택해주십시요.');
-    showSpechar();
-  });
-
-  $(document)
-    .on('click','#btn_spechar_close',e=>{
-      e.preventDefault(); $('#spechar-modal').fadeOut(120);
-    })
-    .on('click','#spechar-modal a',e=>{
-      e.preventDefault();
-      insertAtCaret($('#message')[0], $(e.target).text());
-      $('#spechar-modal').fadeOut(120);
-      messageByteCheck();
-    });
-
-  function insertAtCaret(el,txt){
-    el.focus();
-    if(document.selection){
-      const sel=document.selection.createRange(); sel.text=txt;
-    }else if(el.selectionStart!==undefined){
-      const s=el.selectionStart,e=el.selectionEnd;
-      el.value=el.value.slice(0,s)+txt+el.value.slice(e);
-      el.selectionStart=el.selectionEnd=s+txt.length;
-    }else{ el.value+=txt; }
-  }
-});
-*/
 /* =================================================================
    5. Dummy Ajax (네트워크 차단)
 ================================================================= */
