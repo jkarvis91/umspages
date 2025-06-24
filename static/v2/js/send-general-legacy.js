@@ -170,6 +170,22 @@ function messageByteCheck(addText){
   }
 }
 
+/* textarea 커서 위치에 문자열 삽입 (IE8 하위 포함) */
+function insertAtCaret (el, txt){
+  el.focus();
+  if (document.selection){                    // IE <= 8
+    const sel = document.selection.createRange();
+    sel.text = txt;
+  } else if (el.selectionStart != null){      // Modern
+    const s = el.selectionStart,
+          e = el.selectionEnd;
+    el.value = el.value.slice(0, s) + txt + el.value.slice(e);
+    el.selectionStart = el.selectionEnd = s + txt.length;
+  } else {                                    // Fallback
+    el.value += txt;
+  }
+}
+
 /* -----------------------------------------------------------------
    spechar modal : global delegat
 ------------------------------------------------------------------ */
