@@ -17,9 +17,27 @@
              일반보내기
             </a>
           </li>
-          <li><a href="/filesend.html" id="filesend_link">파일대량보내기</a></li>
-          <li><a href="/eventsend.html" id="eventmessage_link">경조사보내기</a></li>
-          <li><a href="/emplsms/emplsend.html" id="emplsend_link">직원용 SMS 발송</a></li>
+          <li>
+            <a href="{{ '/pages/filesend.html' | relative_url }}"
+              data-menu-id="filesend_link"
+              data-menu-link="{{ '/pages/filesend.html' | relative_url }}">
+             파일대량보내기
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/pages/eventmessage_link' | relative_url }}"
+              data-menu-id="eventmessage_link"
+              data-menu-link="{{ '/pages/eventmessage_link' | relative_url }}">
+             경조사보내기
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/pages/emplsend.html' | relative_url }}"
+              data-menu-id="emplsend_link"
+              data-menu-link="{{ '/pages/emplsend.html' | relative_url }}">
+             직원용 SMS 발송
+            </a>
+          </li>
         </ul>
       </li>
 
