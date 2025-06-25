@@ -169,51 +169,9 @@ function messageByteCheck(addText){
   }
 }
 
-/* textarea 커서 위치에 문자열 삽입 (IE8 하위 포함) */
-/*
-function insertAtCaret (el, txt){
-  el.focus();
-  if (document.selection){                    // IE <= 8
-    const sel = document.selection.createRange();
-    sel.text = txt;
-  } else if (el.selectionStart != null){      // Modern
-    const s = el.selectionStart,
-          e = el.selectionEnd;
-    el.value = el.value.slice(0, s) + txt + el.value.slice(e);
-    el.selectionStart = el.selectionEnd = s + txt.length;
-  } else {                                    // Fallback
-    el.value += txt;
-  }
-}*/
+/* ==== 전화번호 입력 필터 ==== */
+function inputPhoneType ($el){
+  var v = $el.val().replace(/[^0-9]/g,'');
+  $el.val(v);
+}
 
-/* -----------------------------------------------------------------
-   spechar modal : global delegat
------------------------------------------------------------------- */
-/*
-$(document)
-  .on('click', '#btn_spechar_close', function (e) {
-    e.preventDefault();
-    $('#spechar-modal').dialog('close').dialog('destroy');
-  })
-*/
-/* 특수문자 <a> 클릭 */
-  /*.on('click', '#spechar-modal a', function (e) {
-    e.preventDefault();
-    const ch = $(this).text();
-    /*
-    insertAtCaret($('#message')[0], ch); // 직접 삽입
-    messageByteCheck();                   // 바이트 계산만
-     */
-/*
-    const $msg = $('#message');
-    $msg.focus()[0].setSelectionRange(specharStart, specharEnd);
-     
-
-    messageByteCheck(ch);                 // insert & update
-     
-
-    specharStart = specharEnd = specharStart + ch.length;
-     
-    $('#spechar-modal').dialog('close').dialog('destroy');
-  });
-*/
