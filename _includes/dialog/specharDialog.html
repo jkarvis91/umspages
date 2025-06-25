@@ -64,7 +64,7 @@
         $msg.focus()[0].setSelectionRange(startPosition, endPosition);
   
         /* (2) 문자 삽입 + byte 계산 */
-        const ch = $(this).text();
+        const ch = $.trim($(this).text());
         messageByteCheck(ch);
   
         /* (3) 커서 좌표 업데이트 → 다음 문자도 이어서 입력 */
