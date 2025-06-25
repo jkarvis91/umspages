@@ -1,0 +1,145 @@
+---
+layout: layout
+---
+
+<h3 id="page-title">파일 대량 보내기</h3>
+
+<!-- ====================== 안내 박스 ===================== -->
+<div id="content">
+  <div class="box_info">
+    <div class="title">「비대면 은행영업 가이드라인」에 의해 마케팅 목적의 문자발송이 불가합니다.</div>
+    <div class="text1 mgt5">
+      메시지센터는 기존계약의 유지관리(여·수신 만기안내 등)를 목적으로 발송이 가능하며
+      <font color="red"><b>고객관리(생일축하, 감성메시지 등)는 CRM시스템을 이용해 주시기 바랍니다.
+      <span>(단, 마케팅 목적의 문자는 발송불가)</span></b></font>
+    </div>
+    <div class="text2 mgt5">
+      정보통신망법 이용촉진 및 정보보호 등에 관한 법률에 따라 “영리목적 광고성 정보” 수신 거부 고객에 대한 마케팅은
+      3천만원 이하 과태료 부과 대상입니다.
+      (관련문서 : 상품 안내장 전송(FAX, E-MAIL 등) 관련 유의사항 통보, 정보보호센터 2013.7.25)
+    </div>
+  </div>
+
+  <!-- ====================== 발송종류 선택 ===================== -->
+  <div class="tbl_wrap_view mgt5">
+    <table class="tbl_view01" summary="검색조건 테이블">
+      <caption>검색조건 테이블</caption>
+      <colgroup>
+        <col style="width:180px"/>
+        <col style="width:auto"/>
+      </colgroup>
+      <tr>
+        <th scope="row">발송종류 선택</th>
+        <td>
+          <div class="row1">
+            <div class="radio_default">
+              <input type="radio" id="cusType_0" name="cusType" value="0">
+              <label for="cusType_0">기존계약 유지관리</label>
+            </div>
+            <div class="radio_default">
+              <input type="radio" id="cusType_1" name="cusType" value="1">
+              <label for="cusType_1">마케팅 및 고객관리</label>
+            </div>
+          </div>
+          <div class="row1 mgb5"><span>· 기존계약 유지관리</span> : 여·수신 만기 안내 등 고객이 안내 받지 못하면 불이익이 있는 경우</div>
+          <div class="row1"><span>· 마케팅 및 고객관리</span> : 상품/서비스 권유, 생일 축하 메시지, 감성 메시지 등(문자 발송 불가)</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ====================== 도움말 박스 ===================== -->
+  <div class="box_info_blue mgt10">
+    <div class="title">파일 불러오기, 셀 입력 및 편집 도움말</div>
+    <ul class="text1 mgt10">
+      <li>- 파일은 <b>.txt</b> 또는 <b>.csv</b>(엑셀 저장) 형식만 지원합니다.</li>
+      <li>- 구분자는 콤마(<code>,</code>) 또는 줄바꿈이어야 합니다.</li>
+      <li>- 한 번에 최대 <b>1,000건</b>까지 발송할 수 있습니다.</li>
+    </ul>
+  </div>
+
+  <!-- ====================== 파일/도움말/샘플 버튼 ===================== -->
+  <div class="mgt5">
+    <a href="javascript:;" class="btn_default fileopen" id="upload-btn">파일불러오기</a>
+    <a href="{{ '/message/download/sample/bulk' | relative_url }}" class="btn_default download mgl6">샘플다운로드</a>
+    <a href="javascript:;" id="help-btn" class="btn_default question fr">도움말</a>
+  </div>
+
+  <!-- ====================== 업로드 목록 테이블 ===================== -->
+  <div class="table_top">
+    총 <span id="total_cnt">0</span>건
+    <span class="num" id="per-page">
+      <select style="display:none;"><option value="1000">1000</option></select>
+    </span>
+  </div>
+
+  <div class="tbl_wrap_list">
+    <table class="tbl_list" id="message_upload_table" summary="파일 등록 테이블">
+      <caption>파일 등록 테이블</caption>
+      <colgroup>
+        <col style="width:120px"/>
+        <col style="width:190px"/>
+        <col style="width:500px"/>
+        <col style="width:50px"/>
+      </colgroup>
+      <thead>
+      <tr>
+        <th scope="col">휴대폰번호</th>
+        <th scope="col">제목</th>
+        <th scope="col">메시지</th>
+        <th scope="col">발송타입</th>
+      </tr>
+      </thead>
+    </table>
+  </div>
+
+  <!-- ====================== 발신정보 & 예약발송 ===================== -->
+  <div class="box_send01 mgt10">
+    <ul>
+      <li>
+        <span class="title01">발신인 전화번호</span>
+        <span><input type="text" id="sender" placeholder="숫자만 입력" style="width:150px"></span>
+      </li>
+      <li class="mgb6">
+        <span class="title01">예약발송 설정</span>
+        <span class="checkbox_default fn">
+          <input type="checkbox" id="reserveYN1">
+          <label for="reserveYN1">예약발송</label>
+        </span>
+        <span><select class="small" name="year"  disabled></select></span><span class="text1">년</span>
+        <span><select class="small" name="month" disabled></select></span><span class="text1">월</span>
+        <span><select class="small" name="date"  disabled></select></span><span class="text1">일</span>
+        <span><select class="small" name="hour"  disabled></select></span><span class="text1">시</span>
+        <span><select class="small" name="min"   disabled></select></span><span class="text1">분</span>
+      </li>
+      <li class="info">* 발송 가능시간은 07:30 ~ 20:50 입니다.</li>
+    </ul>
+    <span class="btn">
+      <a href="javascript:;" id="send-btn">
+        <img src="{{ '/static/images/btn_send_b.png' | relative_url }}" alt="보내기">
+      </a>
+    </span>
+  </div>
+</div><!-- /#content -->
+
+<!-- ====================== 공통 스크립트 & 모듈 ===================== -->
+<link rel="stylesheet" href="{{ '/static/css/jquery-ui.min.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/static/css/datatables.min.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/static/css/default.css' | relative_url }}">
+
+<script src="{{ '/static/js/jquery-ui.min.js'              | relative_url }}"></script>
+<script src="{{ '/static/js/jquery.number.js'               | relative_url }}"></script>
+<script src="{{ '/static/js/tabcontent.js'                  | relative_url }}"></script>
+<script src="{{ '/static/js/UmsValidation.js'               | relative_url }}"></script>
+<script src="{{ '/static/js/UmsInitData.js'                 | relative_url }}"></script>
+<script src="{{ '/static/js/UmsDatepicker.js'               | relative_url }}"></script>
+<script src="{{ '/static/js/UmsZoomInOut.js'                | relative_url }}"></script>
+<script src="{{ '/static/js/datatable-column/massfile-upload-column.js' | relative_url }}"></script>
+<script src="{{ '/static/js/messageUtil.js'                 | relative_url }}"></script>
+
+{% include upload-dialog.html      %}
+{% include help/address-help.html  %}
+{% include loading.html            %}
+
+<!-- ====================== 페이지 전용 JS ===================== -->
+<script src="{{ '/static/js/pages/file-mass-send.js' | relative_url }}"></script>
