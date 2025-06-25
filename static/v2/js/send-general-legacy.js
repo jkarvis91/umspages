@@ -91,17 +91,73 @@ $(document).on('click', '#specharPreview', function (e) {
 /* =================================================================
    5. Dummy Ajax (네트워크 차단)
 ================================================================= */
-function mockData(p){
-  const d={
-    '/addressCall/personal':{addrType:'personal',personalGroupList:[],shareGroupList:[]},
-    '/form/happy':{startPage:1,endPage:1,currentPage:1,data:[]}
-  }; return d[p]||{};
-}
-const ajaxGET =(p,q,cb)=>{console.log('[DEMO] GET',p,q);setTimeout(()=>cb(mockData(p)),200);}
-const ajaxPOST=(p,b,cb)=>{console.log('[DEMO] POST',p,b);setTimeout(()=>cb(mockData(p)),200);}
+/* === (5) Dummy Ajax — Full Mock ================================================= */
+/* ----------------------- 1. 샘플 데이터 ----------------------- */
+const FORM_DATA = {
+  happy   : [ {code:'happy',seq:1,msgFormCts:'감사합니다 ♥',      msgFormTit:'감사'},
+              {code:'happy',seq:2,msgFormCts:'오늘도 행복하세요☺', msgFormTit:'행복'},
+              {code:'happy',seq:3,msgFormCts:'생일 축하합니다!',   msgFormTit:'생일'} ],
+  head    : [ {code:'head', seq:11,msgFormCts:'○○상품 만기 도래 안내', msgFormTit:'만기안내'},
+              {code:'head', seq:12,msgFormCts:'금리 우대 연장 안내',   msgFormTit:'우대연장'} ],
+  personal: [ {code:'personal',seq:21,msgFormCts:'내 자주쓰는 문구 ①',msgFormTit:'개인①'},
+              {code:'personal',seq:22,msgFormCts:'내 자주쓰는 문구 ②',msgFormTit:'개인②'} ],
+  dept    : [ {code:'dept',seq:31,msgFormCts:'부서 공통 문안',        msgFormTit:'부서공통'} ]
+};
 
-function reloadAddressViewData(){ ajaxGET(`/addressCall/`+addrGroupCode,null,handleAddressGroups); }
-function reloadPreViewData()    { ajaxPOST(`/form/`+code,msgFormInfo,handlePreviewResult); }
+const ADDR_DATA = {
+  personal:{                           // “개인주소록” 탭
+    groups:[{grpSeq:'p01',groupName:'VIP', emplId:'STATIC'},
+            {grpSeq:'p02',groupName:'일반',emplId:'STATIC'}],
+    list:{
+      p01:[{firstName:'홍길동', mobile:'01012341234'},
+           {firstName:'김영희', mobile:'01098769876'}],
+      p02:[{firstName:'박철수', mobile:'01011112222'}]
+    }
+  },
+  share:{                              // “부서공유주소록” (개인탭 내부)
+    groups:[{grpSeq:'s01',groupName:'영업부',emplId:'STATIC'}],
+    list:{s01:[{firstName:'영업부장', mobile:'01022223333'}]}
+  },
+  group:{                              // “부서주소록” 탭
+    parts:[{boCode:'0000',partName:'본사'}],
+    list :{'0000':[ {firstName:'본사대표', mobile:'01044445555'} ]}
+  }
+};
+
+/* ----------------------- 2. 라우터 + Mock ----------------------- */
+function mockData (path){
+  /* ── ① 미리보기용 서식 리스트 ─────────────────────────── */
+  if (path.startsWith('/form/')){                 // ex) /form/happy
+    const code = path.split('/')[2];
+    return {startPage:1,endPage:1,currentPage:1,data:FORM_DATA[code]||[]};
+  }
+
+  /* ── ② 주소록 ‘그룹’ 목록 ───────────────────────────── */
+  if (path === '/addressCall/personal'){
+    return {
+      addrType:'personal',
+      personalGroupList:ADDR_DATA.personal.groups,
+      shareGroupList   :ADDR_DATA.share.groups
+    };
+  }
+  if (path === '/addressCall/share'){
+    return {addrType:'share',partList:ADDR_DATA.group.parts};
+  }
+
+  /* ── ③ 주소록 상세 연락처 ───────────────────────────── */
+  // 실제 서비스 URL 패턴:
+  //   /addressCall/{emplId}/{pdef|gdef}  또는  /addressCall/{grpSeq}
+  // 우리는 마지막 토큰만 빼서 매칭
+  const tokens = path.split('/');
+  const key    = tokens[tokens.length-1];         // p01, s01, 0000, pdef …
+  return  ADDR_DATA.personal.list[key] ||
+          ADDR_DATA.share.list[key]    ||
+          ADDR_DATA.group.list[key]    || [];
+}
+
+/* ----------------------- 3. 가짜 Ajax 래퍼 ---------------------- */
+const ajaxGET  = (p,q,cb)=>{ console.log('[GET]',p);  cb(mockData(p)); };
+const ajaxPOST = (p,b,cb)=>{ console.log('[POST]',p); cb(mockData(p)); };
 
 /* =================================================================
    6. 실제 발송 → 데모 처리
