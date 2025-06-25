@@ -52,32 +52,31 @@
     startPosition = $('#message').prop('selectionStart');
     endPosition   = $('#message').prop('selectionEnd');
 
-    /* X 버튼 */
-    $('#btn_spechar_close')
-      .off('click')
-      .on('click', () => {
-        $('#spechar-modal').dialog('close');
-        return false;
+     if (!window.__specharBound) {                  // ★ NEW
+      window.__specharBound = true;               //   중복 방지
+  
+      /* 특수문자 <a> 클릭 */
+      $(document).on('click', '#spechar-modal a', function (e) { // ★ NEW
+        e.preventDefault();
+  
+        /* (1) textarea 로 포커스 & 커서 복원 */
+        const $msg = $('#message');
+        $msg.focus()[0].setSelectionRange(startPosition, endPosition);
+  
+        /* (2) 문자 삽입 + byte 계산 */
+        const ch = $(this).text();
+        messageByteCheck(ch);
+  
+        /* (3) 커서 좌표 업데이트 → 다음 문자도 이어서 입력 */
+        startPosition = endPosition = startPosition + ch.length;
       });
-
-    /* 문자 <a> 바인딩 */
-    $('#spechar-modal a').off('click').on('click', function (e) {
-      e.preventDefault();
-
-      /* ① textarea 로 포커스 + 커서 복원 */
-      const $msg = $('#message');
-      $msg.focus()[0].setSelectionRange(startPosition, endPosition);
-
-      /* ② 문자 삽입 + byte 계산 */
-      const ch = $(this).text();
-      messageByteCheck(ch);
-
-      /* ③ 커서 좌표 업데이트 */
-      startPosition = endPosition = startPosition + ch.length;
-
-      /* ④ 팝업 닫기(선택) */
-      /*$('#spechar-modal').dialog('close');*/
-    });
+  
+      /* X 버튼 – 다이얼로그만 닫기 */
+      $(document).on('click', '#btn_spechar_close', function (e) { // ★ NEW
+        e.preventDefault();
+        $('#spechar-modal').dialog('close').dialog('destroy');
+      });
+    }
 
     /* dialog 띄우기 */
     $('#spechar-modal').dialog({
