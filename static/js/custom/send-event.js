@@ -35,6 +35,7 @@
       if (isFirstMsg) {
         $(this).val('');
         $('.main-msg').remove();
+        $(this).attr('placeholder', $(this).data('ph'));
         isFirstMsg = false;
       }
     })
