@@ -1,0 +1,171 @@
+---
+layout: layout
+---
+<div id="content">
+  <!-- ■■■ ① 입력·송신 박스 ■■■ -->
+  <div class="wrap_box_nsend2 mgt30">
+    <!-- ◆ 좌측 : 메시지 작성 ◆ -->
+    <div class="col1">
+      <div class="box_nsend">
+        <div class="content">
+          <!-- ▶ 메시지 textarea ◀ -->
+          <div class="text_sms" style="height:230px;">
+            <textarea id="message" class="sms"
+                      placeholder="내용을 입력하세요"
+                      style="font-family:굴림;font-size:16px;width:100%;height:230px;padding-right:5px;"></textarea>
+
+            <span class="main-msg" style="position:absolute;left:12px;top:0;">
+              * 고객정보 및 은행 주요정보 송신 금지<br><br>
+              <b style="color:red;">* SMS/MMS 발송은 업무용으로만 사용하시고<br>사적으로는 사용하지 마세요.</b>
+            </span>
+          </div>
+
+          <div class="byte">0 byte <span>SMS</span></div>
+
+          <div class="tac mgt19">
+            <a href="javascript:;"           class="btn_msave_blue"  id="btnMessageSave">메시지저장</a>
+            <a href="javascript:;"           class="btn_refresh_blue mgl6" id="btnMessageClear">새로쓰기</a>
+            <a href="javascript:;"           class="btn_scode_blue   mgl6" id="specharPreview">특수문자</a>
+          </div>
+        </div>
+
+        <div class="info mgt22">
+          * SMS/MMS 발송은 업무용으로만 사용하시고, 사적으로는 사용하지 마세요.
+        </div>
+
+        <div class="snum">
+          발신번호  <input type="text" id="sender" placeholder="입력하세요">
+        </div>
+
+        <div class="mgt15">
+          <a href="javascript:;">
+            <img src="{{ '/static/images/btn_preview.png' | relative_url }}" id="popupPreview" alt="미리보기">
+          </a>
+          <a href="javascript:;" class="mgl5">
+            <img src="{{ '/static/images/btn_rsend.png'   | relative_url }}" id="btn_reserve_send" alt="예약전송">
+          </a>
+          <a href="javascript:;" class="mgl5">
+            <img src="{{ '/static/images/btn_send.png'     | relative_url }}" id="btn_send" alt="보내기">
+          </a>
+        </div>
+
+        <input type="hidden" id="reserveDate">
+      </div><!-- /.box_nsend -->
+    </div><!-- /.col1 -->
+
+    <!-- ◆ 가운데 : 수신번호 ◆ -->
+    <div class="col2" id="sms-receiver">
+      <div class="title">수신번호 (총 <span>0</span>개)</div>
+
+      <div class="tbl_wrap_list_small mgt16" style="width:268px;height:481px;overflow-y:scroll;">
+        <table class="tbl_list" summary="수신번호 테이블">
+          <caption>수신번호</caption>
+          <colgroup><col style="width:95px"><col></colgroup>
+          <tbody class="sms-send-list" id="sms-send-list"></tbody>
+        </table>
+      </div>
+
+      <div class="mgt9">
+        <a href="javascript:;" id="btn-remove"    class="btn_default delete small">삭제</a>
+        <a href="javascript:;" id="btn-removeAll" class="btn_default delete small mgl6">전체삭제</a>
+      </div>
+    </div><!-- /.col2 -->
+
+    <!-- ◆ 우측 : 검색 / 직급·직위 ◆ -->
+    <div class="col3">
+      <div class="title">수신인 검색 / 직급·직위 선택</div>
+
+      <!-- 지역·영업점 선택 -->
+      <div class="box1 mgt16">
+        <!-- 전직원 -->
+        <div class="radio_default">
+          <input  type="radio" id="sms-event-r1" name="sms_person" value="all"  class="send-all">
+          <label for="sms-event-r1">전직원에게 발송</label>
+        </div>
+        <!-- 지역소속 -->
+        <div class="radio_default mgt22">
+          <input  type="radio" id="sms-event-r2" name="sms_person" value="area" class="send-area">
+          <label for="sms-event-r2">지역소속 직원에게 발송</label>
+        </div>
+        <div class="fl mgt9 mgl22">
+          <select name="sms_bo_area" style="width:186px">
+            <option value="default" selected>선택</option>
+            <!-- ▼ 실제 서비스라면 서버·Ajax ·Liquid 등으로 자동 생성 -->
+            <option value="750">강동영업본부</option>
+            <option value="751">충청영업본부</option>
+            <option value="752">북부영업본부</option>
+            <option value="753">강남영업본부</option>
+            <option value="754">서부영업본부</option>
+            <option value="755">경수영업본부</option>
+            <option value="756">경인영업본부</option>
+            <option value="757">부산경남영업본부</option>
+            <option value="758">호남영업본부</option>
+            <option value="759">대구경북영업본부</option>
+            <option value="760">강서영업본부</option>
+            <option value="990">본부부서</option>
+            <option value="991">사업본부</option>
+            <option value="992">해외영업</option>
+          </select>
+          <a href="javascript:;" id="btn_search_area" class="btn_default gray">검색</a>
+        </div>
+        <!-- 영업점 -->
+        <div class="radio_default mgt23">
+          <input  type="radio" id="sms-event-r3" name="sms_person" value="code" class="send-code">
+          <label for="sms-event-r3">영업점 직원에게 발송</label>
+        </div>
+        <div class="fl mgt9 mgl22">
+          <input type="text" name="sms_bo_code" id="send-code" placeholder="영업점 코드 입력" style="width:164px">
+          <a    href="javascript:;" id="btn_search_shop" class="btn_default gray">검색</a>
+        </div>
+      </div><!-- /.box1 -->
+
+      <!-- 직급·직위 -->
+      <div class="box2" style="display:none;">
+        <div>
+          <span class="title01">직급선택</span>
+          <select class="vab0 mgl4" name="EMPL_CLASS" style="width:197px">
+            <option value="default" selected>선택</option>
+            <option value="ALL">전체</option>
+            <!-- ▼ 필요 시 Liquid 반복문으로 교체 -->
+          </select>
+        </div>
+        <div class="mgt15">
+          <span class="title01">직위선택</span>
+          <select class="vab0 mgl4" name="EMPL_POSITION_NAME" style="width:197px">
+            <option value="default" selected>선택</option>
+            <option value="ALL">전체</option>
+          </select>
+        </div>
+        <div class="info mgt19">
+          * ‘영업점직원에게 발송’을 선택한 경우 직급/직위 적용이 안됩니다.
+        </div>
+      </div><!-- /.box2 -->
+    </div><!-- /.col3 -->
+  </div><!-- /.wrap_box_nsend2 -->
+</div><!-- /#content -->
+
+<!-- =============== 공통 CSS / JS =============== -->
+<link  rel="stylesheet" href="{{ '/static/css/jquery-ui.min.css' | relative_url }}">
+<link  rel="stylesheet" href="{{ '/static/css/datatables.min.css' | relative_url }}">
+<link  rel="stylesheet" href="{{ '/static/css/default.css'      | relative_url }}">
+
+<script src="{{ '/static/js/jquery-ui.min.js'                  | relative_url }}"></script>
+<script src="{{ '/static/js/messageUtil.js'                     | relative_url }}"></script>
+<script src="{{ '/static/js/UmsValidation.js'                   | relative_url }}"></script>
+<script src="{{ '/static/js/UmsInitData.js'                     | relative_url }}"></script>
+<script src="{{ '/static/js/UmsDatepicker.js'                   | relative_url }}"></script>
+<script src="{{ '/static/js/UmsZoomInOut.js'                    | relative_url }}"></script>
+<script src="{{ '/static/js/UmsDatatables.js'                   | relative_url }}"></script>
+<script src="{{ '/static/js/datatable-column/notice-column.js'  | relative_url }}"></script>
+
+<!-- ■ 팝업(기존 JSP include → Jekyll include 로 변환) -->
+{% include messageDialog.html  %}
+{% include loading.html        %}
+{% include dialog/previewDialog.html  %}
+{% include dialog/specharDialog.html  %}
+{% include dialog/saveMsgDialog.html  %}
+{% include dialog/reserveDialog.html  %}
+{% include searchDialog.html   %
+
+<!-- =============== 페이지 전용 JS =============== -->
+<script src="{{ '/static/js/custom/send-event.js' | relative_url }}"></script>
