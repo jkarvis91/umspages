@@ -1,13 +1,9 @@
 var UmsFileUploadColumn = {
   columns: [
-    {data: "mobile"
-    },
-    {data: 'msg3'
-    },
-    {data: 'msg1'
-    },
-    {data: 'msg2'
-    }
+    {data: "mobile"},
+    {data: 'msg3', defaultContent: '' },
+    {data: 'msg1'},
+    {data: 'msg2'}
    
   ],
   columnDefs: [{
