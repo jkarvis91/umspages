@@ -106,7 +106,15 @@
   let _byte   = 0;
   let alertMms = 'SMS';
 
-  function messageByteCheck () {
+  function messageByteCheck (ch) {
+    const $msg = $('#message');
+    if (ch){                            // 특수문자 클릭으로 호출된 경우
+        const posStart = $msg.prop('selectionStart');
+        const posEnd   = $msg.prop('selectionEnd');
+        const val = $msg.val();
+        $msg.val( val.slice(0,posStart) + ch + val.slice(posEnd) );
+        $msg[0].setSelectionRange(posStart+ch.length, posStart+ch.length);
+    }
     _byte = window.checkByteTextarea ? checkByteTextarea($('#message')) : $('#message').val().length;
     alertMms = _byte > 88 ? 'SMS' : 'SMS';                       // (경조사: 88byte 제한)
 
@@ -565,13 +573,6 @@ function initData(type, boCode) {
      .off('click').on('click', function () {
         $("input[name=chk]").prop('checked', this.checked);
   });
-/* 특수문자 클릭 → textarea 삽입 (팝업이 언제 만들어져도 작동) */
- $(document).on('click', '#spechar-modal .char', function () {
-   const $msg = $('#message');
-   $msg.val( $msg.val() + $(this).text() );
-   /* 바이트 수 즉시 갱신 */
-   if (window.messageByteCheck) messageByteCheck();
- });
 
 }
 
