@@ -91,41 +91,4 @@ function showSearch(type, boCode) {
 	});
     $(".ui-dialog-titlebar").hide();
 }
-
-/* 2) 함수 본문만 교체, 이름은 그대로 */
-function initData(type, boCode) {
-
-  /* GitHub Pages에서는 서버가 없으므로 배열 검색으로 대체 */
-  const result = (SEARCH_DB[type] || []).filter(obj =>
-      type === "area" ? obj.boCode === boCode
-                      : obj.emplName.includes(boCode));
-
-  /* ↓↓↓ 이하 원래 DOM 빌드·전체체크 코드는 그대로 ↓↓↓ */
-  var html = "", $wrap = $("#sms-search-rej").empty();
-  if (!result.length) { $wrap.text("검색 결과가 없습니다."); return; }
-  html += '<div class="title_tree checkbox_default fn">'
-       + '  <input type="checkbox" name="chk-all" />'
-       + '  <label>검색결과</label></div><ul id="serach-event-list"></ul>';
-  $wrap.html(html);
-
-  result.forEach((d,i)=> {
-    if (type==="code") $("#serach-event-list").append(
-      `<li><div class='checkbox_default fn'>
-          <input type='checkbox' id='cb${i}' name='chk'>
-          <label for='cb${i}' id='name'>${d.emplName}</label>
-          <span class='mgl11' id='phone'>${d.emplHpNo}</span></div></li>`
-    );
-    else $("#serach-event-list").append(
-      `<li><div class='checkbox_default fn'>
-          <input type='checkbox' id='cb${i}' name='chk'>
-          <label for='cb${i}' id='name'>${d.boCode}</label>
-          <span class='mgl11' id='phone'>${d.partName}</span></div></li>`
-    );
-  });
-
-  $("#sms-search-rej input[name=chk-all]")
-     .off('click').on('click', function () {
-        $("input[name=chk]").prop('checked', this.checked);
-  });
-}
 </script>
