@@ -119,7 +119,7 @@
       messageByteCheck();                                        // 재귀로 정상화
     }
   }
-
+  window.messageByteCheck = messageByteCheck;
   /* ========= 수신번호 카운터 ========= */
   function addReceiverCount () {
     $('#sms-receiver .title span').text($('#sms-send-list tr').length);
