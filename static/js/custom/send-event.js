@@ -300,17 +300,6 @@ function initSendInfo(){
 	$("#sms-receiver #sms-send-list").children().remove(); // 수신번호 초기화
 	addReceiverCount();//수신번호 총 갯수 초기화
 }
-
-//// sms 메세지저장       
-  $("#btnMessageSave").click(function() {
-    var msg = $("#message").val();
-    if(msg.trim() == '') {
-   		showAlert("저장할 메세지가 없습니다.");
-    	return false;
-    }
-    showSaveMsg(msg);
-    return false;//현재 사용자가 보고있는 위치 유지
-  });
   
   
   
@@ -345,79 +334,6 @@ function saveMsg(saveMsg_code, saveMsg_msg, saveMsg_title){
     });
 }
 
-var _byte = 0;
-var alertMms = "SMS";
-////메시지 Byte 체크
-// addText (현재 문자 + inputText)
-function messageByteCheck(addText){
-	 if(addText != null)
-	 {
-		var messageArea = $("#message");
-		messageArea.val(messageArea.val().substring(0, startPosition) + addText + messageArea.val().substring(endPosition, messageArea.val().length));
-	 }
- 	 _byte = checkByteTextarea($("#message"));//byte 계산
-
- 	 if (_byte > 88) {
-     } else {
-   	 	alertMms = "SMS";
-     } 
-
- 	 $(".byte").empty();
- 	 $(".byte").html(_byte+" byte <span>"+alertMms+"</span>");
-
- 	 if(_byte > 88) {
-  	    showAlert("메시지 내용은 88바이트 이상은 전송하실수 없습니다.");
-		var idx = 0;
-		for(var i=_byte; i > 88;idx++){
-			$("#message").val($("#message").val().substr(0,(88-idx)));
-			i = checkByteTextarea($("#message"));
-		}
-		messageByteCheck();
-       	return false;
-     }
-}
-  
-//메시지 새로쓰기
-function messageClear() {
-		$("#messageTitle").val("");
-	    $("#message").val("");
-	    messageByteCheck();
-}
- 
-//###############################수신번호 목록 @2#####################################################
-$(document).ready(function () {
-//// 받는사람 삭제
-	$("#sms-receiver #btn-remove").click(function() {
-  		var addrs = $("#sms-receiver input[name=addrchk]:checked");
-	  	if (addrs.length > 0) {
-	  		addrs.each(function(){
-	  			$(this).parent().parent().parent().remove();
-	  		});
-	  		
-	  		addReceiverCount();//수신번호 총 갯수 갱신
-		} else {
-			showAlert("선택된 연락처가 없습니다.");
-		}
-		return false;
-	});
-	  
-//// 받는사람 전체삭제
-	$("#sms-receiver #btn-removeAll").click(function() {
-		var addrs = $("#sms-receiver input[name=addrchk]");
-		if (addrs.length > 0) {
-			$("#sms-receiver #sms-send-list").children().remove();
-			addReceiverCount();//수신번호 총 갯수 갱신
-		} else {
-			showAlert("등록된 연락처가 없습니다.");
-		}
-		phoneNums = new Array();
-		return false;
-	});
-});
-// READY END
-  
-  
-  
 var checkIdx = 1;
 //// 수신번호  추가
 function addTarget(inputName, inputPhone) {
@@ -449,12 +365,6 @@ function addTarget(inputName, inputPhone) {
     addReceiverCount();
     $("#sms-receiver #receiverNum").val("");
   }, 50);	
-}
-
-//받는 사람 카운터 갱신
-function addReceiverCount() {
-  var _count = $("#sms-receiver .sms-send-list").children().length;
-  $("#sms-receiver .title span").text(_count);
 }
 
 //----------------------------- 수신번호 체크박스 이벤트 설정  ----------------------------------------------------------------
