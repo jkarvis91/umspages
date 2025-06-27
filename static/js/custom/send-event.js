@@ -565,5 +565,13 @@ function initData(type, boCode) {
      .off('click').on('click', function () {
         $("input[name=chk]").prop('checked', this.checked);
   });
+/* 특수문자 클릭 → textarea 삽입 (팝업이 언제 만들어져도 작동) */
+ $(document).on('click', '#spechar-modal .char', function () {
+   const $msg = $('#message');
+   $msg.val( $msg.val() + $(this).text() );
+   /* 바이트 수 즉시 갱신 */
+   if (window.messageByteCheck) messageByteCheck();
+ });
+
 }
 
