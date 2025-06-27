@@ -250,6 +250,16 @@ function getMsgSendInfo(){
 	};	
 }
 
+function showSpechar () {
+  $('#spechar-modal').dialog({ modal:true, width:300 });
+  $('.ui-dialog-titlebar').hide();
+  $('#spechar-modal .char').off('click').on('click', function () {
+      $('#message').val($('#message').val() + $(this).text());
+      messageByteCheck();
+  });
+  $('#spechar-close').off('click').on('click', () => $('#spechar-modal').dialog('close'));
+}
+
 //// 메세지 발송
 	function msgSend(msgSendInfo){
 
@@ -514,3 +524,56 @@ function inputPhoneType(obj){
 };
 
 })(jQuery, window, document);
+
+
+/* 1) 더미 데이터 ─ send-event.js보다 먼저 로드 */
+const SEARCH_DB = {
+  area: [
+    { boCode: "750", partName: "강동영업본부" },
+    { boCode: "751", partName: "충청영업본부" },
+    /* …추가… */
+  ],
+  code: [
+    { emplName: "김도연", emplHpNo: "010-1234-5678" },
+    { emplName: "박정훈", emplHpNo: "010-9876-5432" },
+    /* …추가… */
+  ]
+};
+
+/* 2) 함수 본문만 교체, 이름은 그대로 */
+function initData(type, boCode) {
+
+  /* GitHub Pages에서는 서버가 없으므로 배열 검색으로 대체 */
+  const result = (SEARCH_DB[type] || []).filter(obj =>
+      type === "area" ? obj.boCode === boCode
+                      : obj.emplName.includes(boCode));
+
+  /* ↓↓↓ 이하 원래 DOM 빌드·전체체크 코드는 그대로 ↓↓↓ */
+  var html = "", $wrap = $("#sms-search-rej").empty();
+  if (!result.length) { $wrap.text("검색 결과가 없습니다."); return; }
+  html += '<div class="title_tree checkbox_default fn">'
+       + '  <input type="checkbox" name="chk-all" />'
+       + '  <label>검색결과</label></div><ul id="serach-event-list"></ul>';
+  $wrap.html(html);
+
+  result.forEach((d,i)=> {
+    if (type==="code") $("#serach-event-list").append(
+      `<li><div class='checkbox_default fn'>
+          <input type='checkbox' id='cb${i}' name='chk'>
+          <label for='cb${i}' id='name'>${d.emplName}</label>
+          <span class='mgl11' id='phone'>${d.emplHpNo}</span></div></li>`
+    );
+    else $("#serach-event-list").append(
+      `<li><div class='checkbox_default fn'>
+          <input type='checkbox' id='cb${i}' name='chk'>
+          <label for='cb${i}' id='name'>${d.boCode}</label>
+          <span class='mgl11' id='phone'>${d.partName}</span></div></li>`
+    );
+  });
+
+  $("#sms-search-rej input[name=chk-all]")
+     .off('click').on('click', function () {
+        $("input[name=chk]").prop('checked', this.checked);
+  });
+}
+
