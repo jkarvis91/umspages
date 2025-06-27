@@ -250,16 +250,6 @@ function getMsgSendInfo(){
 	};	
 }
 
-function showSpechar () {
-  $('#spechar-modal').dialog({ modal:true, width:300 });
-  $('.ui-dialog-titlebar').hide();
-  $('#spechar-modal .char').off('click').on('click', function () {
-      $('#message').val($('#message').val() + $(this).text());
-      messageByteCheck();
-  });
-  $('#spechar-close').off('click').on('click', () => $('#spechar-modal').dialog('close'));
-}
-
 //// 메세지 발송
 	function msgSend(msgSendInfo){
 
